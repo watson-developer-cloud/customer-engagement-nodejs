@@ -12,7 +12,7 @@ function Layout(props) {
         <meta charSet="utf-8" />
         <meta httpEquiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1" />
-        <meta name="og:title" content="Tone Analyzer Customer Engagement Demo" />
+        <meta name="og:title" content="Tone Analyzer for Customer Engagement Demo" />
         <meta name="og:description" content={DESCRIPTION} />
         <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.png" />
         <link rel="icon" type="image/png" sizes="96x96" href="/images/favicon-96x96.png" />
@@ -28,7 +28,7 @@ function Layout(props) {
         />
         <Jumbotron
           serviceName="Tone Analyzer for Customer Engagement"
-          repository="https://github.com/watson-developer-cloud/customer-care-nodejs"
+          repository="https://github.com/watson-developer-cloud/customer-engagement-nodejs"
           documentation="http://www.ibm.com/watson/developercloud/doc/tone-analyzer/index.html"
           apiReference="https://www.ibm.com/watson/developercloud/tone-analyzer/api/v3/"
           version="GA"

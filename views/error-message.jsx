@@ -1,17 +1,23 @@
 import React from 'react';
-import { Alert } from 'watson-react-components';
+import { Icon } from 'watson-react-components';
 
-export default function ErrorMessage(props) {
-  return (
-    <div className="error">
-      <Alert type="error" color="grey">
-        <p>{props.error.message}</p>
-      </Alert>
-    </div>
-  );
-}
+export default React.createClass({
+  displayName: 'ErrorMessage',
 
-ErrorMessage.propTypes = {
-  //eslint-disable-next-line
-  error: React.PropTypes.object.isRequired,
-};
+  propTypes: {
+    //eslint-disable-next-line
+    error: React.PropTypes.object,
+  },
+
+  getDefaultProps() {
+    return {
+      error: null,
+    };
+  },
+
+  render() {
+    return (<div className="error">
+      <p className="alerttext"> <Icon type="error" /> {this.props.error.message}</p>
+    </div>);
+  },
+});

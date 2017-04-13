@@ -8,12 +8,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.ibm.com/watson-developer-cloud/customer-engagement-nodejs"
+    "url": "https://github.com/watson-developer-cloud/customer-engagement-nodejs"
   },
   "author": "IBM Corp.",
   "license": "Apache-2.0",
   "bugs": {
-    "url": "https://github.ibm.com/watson-developer-cloud/customer-engagement-nodejs/issues"
+    "url": "https://github.com/watson-developer-cloud/customer-engagement-nodejs/issues"
   },
   "dependencies": {
     "babel-eslint": "^7.1.1",

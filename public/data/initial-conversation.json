@@ -1,0 +1,165 @@
+{
+  "customer": {
+    "name": "Fred",
+    "handle": "@Fred_theConsumer"
+  },
+  "agent": {
+    "name": "Agent",
+    "handle": "@Agent_technology_company"
+  },
+  "utterances": [
+    {
+      "user": {
+        "type": "customer",
+        "name": "Fred",
+        "handle": "@Fred_theConsumer"
+      },
+      "statement": {
+        "text": "My charger isn’t working.",
+        "timestamp": "6 hours ago"
+      },
+      "tones": [
+        {
+          "tone": "sad",
+          "score": 0.57
+        }
+      ]
+    }
+    ,
+    {
+      "user": {
+        "type": "agent",
+        "name": "Agent",
+        "handle": "@Agent_technology_company"
+      },
+      "statement": {
+        "text": "Thanks for reaching out. Can you give me some more detail about the issue?",
+        "timestamp": "5 hours ago"
+      },
+      "tones": [
+        {
+          "tone": "polite",
+          "score": 0.96
+        }
+      ]
+    },
+    {
+      "user": {
+        "type": "customer",
+        "name": "Fred",
+        "handle": "@Fred_theConsumer"
+      },
+      "statement": {
+        "text": "I put my charger in my phone last night to charge and it isn't working. Which is ridiculous, it's a new charger, I bought it yesterday.",
+        "timestamp": "4 hours ago"
+      },
+      "tones": [
+        {
+          "tone": "sad",
+          "score": 0.88
+        },
+        {
+          "tone": "frustrated",
+          "score": 0.58
+        }
+      ]
+    },
+    {
+      "user": {
+        "type": "agent",
+        "name": "Agent",
+        "handle": "@Agent_technology_company"
+      },
+      "statement": {
+        "text": "I’m sorry you’re having issues with charging. What kind of charger do you have?",
+        "timestamp": "2 hours ago"
+      },
+      "tones": [
+        {
+          "tone": "polite",
+          "score": 0.84
+        },
+        {
+          "tone": "sympathetic",
+          "score": 0.79
+        }
+      ]
+    },
+    {
+      "user": {
+        "type": "customer",
+        "name": "Fred",
+        "handle": "@Fred_theConsumer"
+      },
+      "statement": {
+        "text": "I’m using the charger that came with it.",
+        "timestamp": "38 min ago"
+      },
+      "tones": [
+      ]
+    },
+    {
+      "user": {
+        "type": "agent",
+        "name": "Agent",
+        "handle": "@Agent_technology_company"
+      },
+      "statement": {
+        "text": "Okay, fantastic. Could you now please plug the charger in for me, and then hold the power button down for about 10 seconds. After that, we should have you up and running :).",
+        "timestamp": "24 minutes ago"
+      },
+      "tones": [
+        {
+          "tone": "excited",
+          "score": 0.91
+        },
+        {
+          "tone": "polite",
+          "score": 0.78
+        }
+      ]
+    },
+    {
+      "user": {
+        "type": "customer",
+        "name": "Fred",
+        "handle": "@Fred_theConsumer"
+      },
+      "statement": {
+        "text": "Wow! It’s working. Thank you for the tip.",
+        "timestamp": "18 minutes ago"
+      },
+      "tones": [
+        {
+          "tone": "satisfied",
+          "score": 0.85
+        },
+        {
+          "tone": "excited",
+          "score": 0.82
+        }
+      ]
+    },
+    {
+      "user": {
+        "type": "agent",
+        "name": "Agent",
+        "handle": "@Agent_technology_company"
+      },
+      "statement": {
+        "text": "Great! Do you need any more help today?",
+        "timestamp": "16 minutes ago"
+      },
+      "tones": [
+        {
+          "tone": "excited",
+          "score": 0.88
+        },
+        {
+          "tone": "satisfied",
+          "score": 0.79
+        }
+      ]
+    }
+  ]
+}

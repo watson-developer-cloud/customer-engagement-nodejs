@@ -1,0 +1,285 @@
+.root {
+  margin: 4rem auto 0rem;
+}
+
+.error_message {
+  float: left;
+}
+
+.conversation_frame {
+  width: 700px;
+  margin:auto;
+  padding: 10px;
+  height: auto;
+  min-height: 90px;
+  overflow: auto;
+
+}
+
+.reset_link {
+  margin-bottom: 1em;
+}
+
+.conversation {
+  width: 100%;
+  border: 1px solid #c7c7c7;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  height: auto;
+  min-height: 90px;
+  overflow: auto;
+  border-bottom: none;
+}
+
+.speaker {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  overflow: auto;
+  padding: 20px;
+}
+.conversation_header {
+  width: 100%;
+  padding-left:20px;
+  padding-top: 10px;
+  font-size: 1.25em;
+}
+
+.statement_header {
+  float: left;
+  width: 77%;
+}
+
+.tone_header {
+  float: left;
+  margin-top: 0;
+}
+.consumer {
+  background-color: #F5F3FA;
+}
+
+.avatar {
+  float:left;
+  margin-right: 1em;
+  width: 70px;
+}
+.customer_avatar {
+    background-image: url("/images/customer.png");
+    height: 70px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border: 1px solid #c7c7c7;
+    border-radius: 10px;
+}
+
+.agent_avatar {
+    background-image: url("/images/agent.png");
+    height: 70px;
+    background-repeat: no-repeat;
+    background-size: 100%;
+    border: 1px solid #c7c7c7;
+    border-radius: 10px;
+}
+
+.statement_container {
+  float: left;
+  width: 64%;
+  border-right: 1px solid #c7c7c7;
+  margin-right: 15px;
+  margin-top: 0;
+  min-height: 70px;
+}
+.speaker_name {
+  font-weight: bold;
+  font-size: .875em;
+}
+.speaker_handle {
+  font-size: .875em;
+}
+.time_stamp {
+  text-transform: uppercase;
+  color: #777677;
+  font-size: .75em;
+}
+
+.speaker_statement {
+  overflow: hidden;
+  font-size: .875em;
+  margin-top: .25em;
+  margin-right: 1em;
+  line-height: 1.25em;
+}
+
+.score_container {
+  float: left;
+  width: auto;
+  margin-top: 3px;
+}
+
+.tone_text {
+  float: left;
+  font-size: .75em;
+  margin-top: 0;
+  padding-right: .5em;
+  width: 75%;
+}
+.tone_score {
+  font-weight: bold;
+  float: right;
+  font-size: .75em;
+  margin-top: 0;
+  width: 25%;
+}
+
+.negative {
+  color: #DB207C;
+}
+
+.contribute_container {
+  background-color: #f4f4f4;
+  width: 100%;
+  border-bottom-left-radius: 10px;
+  border-bottom-right-radius: 10px;
+  border: 1px solid #c7c7c7;
+  margin-top: 0;
+}
+.input_wrapper {
+  margin-left: 20px;
+  margin-right: 20px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+textarea {
+  height:70px;
+  border: 1px solid #aeaeae;
+  resize: none;
+}
+
+.input_area {
+    width: 90%;
+    float: left;
+    margin-top: 0;
+}
+.input_avatar {
+  float:left;
+  width: 35px;
+  height: 35px;
+  border: 1px solid #c7c7c7;
+  background-color: #ffffff;
+  border-radius: 5px;
+  margin-right: 1em;
+}
+.submit_button {
+  float: right;
+  margin-right: 15px;
+  margin-top: 20px;
+}
+.reset {
+  float: left;
+}
+
+.json {
+  float: right;
+  margin-top: 0;
+}
+.conversation_footer {
+  height: 20px;
+  margin-bottom: 4em;
+}
+
+.jumbotron--header {
+  margin-top: 0rem;
+}
+
+.question-input--input-container {
+  display: block;
+}
+
+.alerttext {
+    color: red;
+}
+
+@media (min-width: 640px) {
+  .question-input--input-container {
+    width: 82.97872%;
+    margin-right: 2.12766%;
+    float: left;
+    display: block;
+  }
+}
+
+.question-input--input {
+  width: 100%;
+  max-width: initial;
+}
+
+.question-input--button-container {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .question-input--button-container {
+    width: 14.89362%;
+    float: left;
+    display: block;
+    margin-top: 0rem;
+  }
+}
+
+.question-input--submit-button {
+  width: 100%;
+}
+
+.sample-questions--left {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .sample-questions--left {
+    width: 48.93617%;
+    margin-right: 2.12766%;
+    float: left;
+    display: block;
+  }
+}
+
+.sample-questions--right {
+  display: block;
+}
+
+@media (min-width: 640px) {
+  .sample-questions--right {
+    width: 48.93617%;
+    float: left;
+    display: block;
+    margin-top: 0rem;
+  }
+
+
+.speaker_statement {
+    margin-right: 0;
+}
+
+.time_stamp {
+    display: block;
+    margin-top: 0;
+}
+}
+
+.base--a {
+  cursor: pointer;
+}
+.service-error {
+  text-align: center;
+}
+
+.service-error--image {
+  margin: 2rem auto;
+  width: 6.5rem;
+  height: auto;
+  display: block;
+}
+
+.service-error--message {
+  color: #d74108;
+  text-align: center;
+}

@@ -1,7 +1,5 @@
 applications:
-- services:
-  - my-ta-service
-  name: customer-engagement-demo
+- name: customer-engagement-demo
   command: npm start
   path: .
   memory: 512M

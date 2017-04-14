@@ -8,8 +8,8 @@ casper.test.begin('Customer Engagement Demo', 14, function suite(test) {
   * Test to ensure the components that the user can interact with are found - Input
   */
   function testReplyInputExists() {
-    test.assertExists('div.question-input--input-container', 'Reply input box is found');
-    test.assertExists('div.question-input--button-container', 'Reply button is found');
+    test.assertExists('div.input_area', 'Reply input box is found');
+    test.assertExists('div.submit_button', 'Reply button is found');
   }
 
   /*

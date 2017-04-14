@@ -31,7 +31,7 @@ const toneAnalyzer = new ToneAnalyzerV3({
   // After that, the SDK will fall back to the bluemix-provided VCAP_SERVICES environment property
   // username: '<username>',
   // password: '<password>',
-  url: 'https://gateway-d.watsonplatform.net/tone-analyzer/api',
+  url: 'https://gateway.watsonplatform.net/tone-analyzer/api',
   version_date: '2016-05-19',
 });
 

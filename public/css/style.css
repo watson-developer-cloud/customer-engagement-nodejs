@@ -182,8 +182,9 @@ textarea {
   margin-top: 0;
 }
 .conversation_footer {
-  height: 20px;
-  margin-bottom: 4em;
+  height: auto;
+  margin-bottom: 1em;
+  overflow: auto;
 }
 
 .jumbotron--header {

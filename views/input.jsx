@@ -67,7 +67,6 @@ const Input = React.createClass({
           <div className="input_area">
             <input
               type="text"
-              autoFocus
               maxLength="170"
               value={this.state.newUtterance}
               onChange={this.handleInputChange}

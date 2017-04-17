@@ -30,7 +30,7 @@ function Layout(props) {
           serviceName="Tone Analyzer for Customer Engagement"
           repository="https://github.com/watson-developer-cloud/customer-engagement-nodejs"
           documentation="http://www.ibm.com/watson/developercloud/doc/tone-analyzer/index.html"
-          apiReference="https://www.ibm.com/watson/developercloud/tone-analyzer/api/v3/"
+          apiReference="https://www.ibm.com/watson/developercloud/tone-analyzer/api/v3/#customer-tone"
           version="GA"
           serviceIcon="/images/service-icon.png"
           startInBluemix="https://console.ng.bluemix.net/registration/?target=/catalog/services/tone-analyzer/"

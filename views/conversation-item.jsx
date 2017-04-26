@@ -49,7 +49,7 @@ const ConversationItem = React.createClass({
           { tones.length === 0 ?
             <div className="tone_text">{ 'None' }</div> :
             tones.map(t => (
-              <div>
+              <div className="tone_results">
                 <div
                   className={this.isFirstToneNegative(tones) ? 'tone_text negative' : 'tone_text'}
                 >{t.tone}
@@ -57,6 +57,10 @@ const ConversationItem = React.createClass({
                 <div
                   className={this.isFirstToneNegative(tones) ? 'tone_score negative' : 'tone_score'}
                 >{parseFloat(t.score).toFixed(2)}
+                </div>
+                <div className="vote">
+                   <span className="voteicon">👍
+                   </span><span className="voteicon">👎</span>
                 </div>
               </div>
             ))}

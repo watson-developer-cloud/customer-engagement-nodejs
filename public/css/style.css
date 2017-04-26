@@ -82,7 +82,7 @@
 
 .statement_container {
   float: left;
-  width: 64%;
+  width: 60%;
   border-right: 1px solid #c7c7c7;
   margin-right: 15px;
   margin-top: 0;
@@ -111,7 +111,7 @@
 
 .score_container {
   float: left;
-  width: auto;
+  width: 25%;
   margin-top: 3px;
 }
 
@@ -120,11 +120,11 @@
   font-size: .75em;
   margin-top: 0;
   padding-right: .5em;
-  width: 75%;
+  width: auto;
 }
 .tone_score {
   font-weight: bold;
-  float: right;
+  float: left;
   font-size: .75em;
   margin-top: 0;
   width: 25%;
@@ -132,6 +132,14 @@
 
 .negative {
   color: #DB207C;
+}
+.vote {
+  float: right;
+  margin-top: -4px;
+}
+.voteicon {
+    margin-top: 0;
+    margin-left: 1em;
 }
 
 .contribute_container {
@@ -247,24 +255,6 @@ textarea {
   display: block;
 }
 
-@media (min-width: 640px) {
-  .sample-questions--right {
-    width: 48.93617%;
-    float: left;
-    display: block;
-    margin-top: 0rem;
-  }
-
-
-.speaker_statement {
-    margin-right: 0;
-}
-
-.time_stamp {
-    display: block;
-    margin-top: 0;
-}
-}
 
 .base--a {
   cursor: pointer;

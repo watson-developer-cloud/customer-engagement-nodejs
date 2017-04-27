@@ -46,6 +46,7 @@ const ConversationItem = React.createClass({
           </div>
         </div>
         <div className="score_container">
+          <div className="agree_container"><span className="agree_link">Do you agree?</span></div>
           { tones.length === 0 ?
             <div className="tone_text">{ 'None' }</div> :
             tones.map(t => (

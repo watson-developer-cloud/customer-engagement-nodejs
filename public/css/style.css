@@ -36,6 +36,7 @@
   margin-bottom: 1em;
   overflow: auto;
   padding: 20px;
+  width: 766px;
 }
 .conversation_header {
   width: 100%;
@@ -82,7 +83,7 @@
 
 .statement_container {
   float: left;
-  width: 64%;
+  width: 60%;
   border-right: 1px solid #c7c7c7;
   margin-right: 15px;
   margin-top: 0;
@@ -111,7 +112,7 @@
 
 .score_container {
   float: left;
-  width: auto;
+  width: 25%;
   margin-top: 3px;
 }
 
@@ -120,11 +121,11 @@
   font-size: .75em;
   margin-top: 0;
   padding-right: .5em;
-  width: 75%;
+  width: auto;
 }
 .tone_score {
   font-weight: bold;
-  float: right;
+  float: left;
   font-size: .75em;
   margin-top: 0;
   width: 25%;
@@ -132,6 +133,14 @@
 
 .negative {
   color: #DB207C;
+}
+.vote {
+  float: right;
+  margin-top: -4px;
+}
+.voteicon {
+    margin-top: 0;
+    margin-left: 1em;
 }
 
 .contribute_container {
@@ -199,15 +208,6 @@ textarea {
     color: red;
 }
 
-@media (min-width: 640px) {
-  .question-input--input-container {
-    width: 82.97872%;
-    margin-right: 2.12766%;
-    float: left;
-    display: block;
-  }
-}
-
 .question-input--input {
   width: 100%;
   max-width: initial;
@@ -215,15 +215,6 @@ textarea {
 
 .question-input--button-container {
   display: block;
-}
-
-@media (min-width: 640px) {
-  .question-input--button-container {
-    width: 14.89362%;
-    float: left;
-    display: block;
-    margin-top: 0rem;
-  }
 }
 
 .question-input--submit-button {
@@ -234,36 +225,17 @@ textarea {
   display: block;
 }
 
-@media (min-width: 640px) {
-  .sample-questions--left {
-    width: 48.93617%;
-    margin-right: 2.12766%;
-    float: left;
-    display: block;
-  }
-}
-
 .sample-questions--right {
   display: block;
 }
 
-@media (min-width: 640px) {
-  .sample-questions--right {
-    width: 48.93617%;
-    float: left;
-    display: block;
-    margin-top: 0rem;
-  }
-
-
-.speaker_statement {
-    margin-right: 0;
+.agree_container {
+    float: right;
+    margin-top: -20px;
+    margin-right: -15px;
 }
-
-.time_stamp {
-    display: block;
-    margin-top: 0;
-}
+.agree_link {
+    font-size: .75em;
 }
 
 .base--a {

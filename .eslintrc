@@ -12,6 +12,7 @@
     }],
     "react/prefer-es6-class": "off",
     "import/newline-after-import": "off",
+    "import/extensions": "off",
     "import/no-extraneous-dependencies": ["warn", {
       "devDependencies": true,
       "optionalDependencies": true,

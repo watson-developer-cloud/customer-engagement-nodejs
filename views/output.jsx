@@ -1,5 +1,4 @@
 import React from 'react';
-//eslint-disable-next-line
 import ConversationItem from './conversation-item.jsx';
 
 export default function Output(props) {
@@ -13,7 +12,7 @@ export default function Output(props) {
       {/* Generate a div for each utterance in the conversation object */}
       <div>
         { props.conversation.map(utterance =>
-          <ConversationItem utterance={utterance} />,
+          <ConversationItem key={utterance.statement.text} utterance={utterance} />,
         )
       }
       </div>
@@ -23,5 +22,5 @@ export default function Output(props) {
 
 Output.propTypes = {
   //eslint-disable-next-line
-  conversation: React.PropTypes.object.isRequired,
+  conversation: React.PropTypes.array.isRequired,
 };

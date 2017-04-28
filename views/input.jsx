@@ -1,5 +1,4 @@
 import React from 'react';
-//eslint-disable-next-line
 import ErrorMessage from './error-message.jsx'
 
 // string constants for text on input component

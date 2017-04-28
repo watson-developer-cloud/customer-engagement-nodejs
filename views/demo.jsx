@@ -1,10 +1,7 @@
 import React from 'react';
 import { JsonLinkInline } from 'watson-react-components';
-//eslint-disable-next-line
 import Output from './output.jsx';
-//eslint-disable-next-line
 import Input from './input.jsx';
-//eslint-disable-next-line
 import ResetConversationLink from './reset-conversation-link.jsx';
 
 // load initial conversation state, a json object
@@ -136,10 +133,9 @@ const Demo = React.createClass({
             showJson={this.state.showJson}
             onExit={this.onExitJson}
             onShow={this.onShowJson}
-            description={<p>
-              <ResetConversationLink
-                resetConversation={this.resetConversation}
-              /></p>}
+            description={
+              <ResetConversationLink resetConversation={this.resetConversation} />
+            }
           />
         </div>
       </div>

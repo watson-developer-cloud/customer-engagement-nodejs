@@ -41,13 +41,10 @@ app.get('/', (req, res) => {
 });
 
 app.post('/api/tone_chat', (req, res, next) => {
-  toneAnalyzer.tone_chat({
-    utterances: req.body,
-  }, (err, tone) => {
+  toneAnalyzer.tone_chat(req.body, (err, tone) => {
     if (err) {
       return next(err);
     }
-    // return res.status(500).json({ error: 'Batman' });
     return res.json(tone);
   });
 });

@@ -34,7 +34,7 @@
     "helmet": "^3.4.0",
     "jquery": "^3.1.1",
     "morgan": "^1.7.0",
-    "watson-developer-cloud": "https://github.com/aprilwebster/node-sdk",
+    "watson-developer-cloud": "^2.30.0",
     "prismjs": "^1.6.0",
     "react": "^15.4.2",
     "react-addons-pure-render-mixin": "^15.4.2",

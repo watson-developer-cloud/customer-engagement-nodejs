@@ -57,7 +57,7 @@ app.get('/healthchecks/tone_analyzer_request_test', (req, res) => {
     utterances: [{ text: 'sad', user: 'customer' }],
   }, (err, tone) => {
     if (err) {
-      return res.status(500).json({ error: 'Unsuccessful call to tone_analyzer tone_chat endpoint' });
+      return res.status(500).json({ error: err.toString() });
     }
     return res.status(200).json(tone);
   });

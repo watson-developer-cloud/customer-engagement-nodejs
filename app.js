@@ -49,6 +49,20 @@ app.post('/api/tone_chat', (req, res, next) => {
   });
 });
 
+// Endpoint test for call to tone-analyzer
+// if an error is returned from a request to the tone-analyzer tone_chat endpoint,
+// return a 500, otherwise return a 200.
+app.get('/healthchecks/tone_analyzer_request_test', (req, res) => {
+  toneAnalyzer.tone_chat({
+    utterances: [{ text: 'sad', user: 'customer' }],
+  }, (err, tone) => {
+    if (err) {
+      return res.status(500).json({ error: 'Unsuccessful call to tone_analyzer tone_chat endpoint' });
+    }
+    return res.status(200).json(tone);
+  });
+});
+
 // error-handler settings
 require('./config/error-handler')(app);
 

@@ -60,7 +60,7 @@ app.get('/healthcheck', (req, res) => {
 
   toneAnalyzer.tone_chat(requestPayload, (err, tone) => {
     const responseTimestamp = new Date().toISOString();
-    res.header('X-Watson-Learning-Opt-Out', true);
+    res.setHeader('X-Watson-Learning-Opt-Out', true);
 
     if (err) {
       return res

@@ -51,15 +51,43 @@ app.post('/api/tone_chat', (req, res, next) => {
 
 // Endpoint test for call to tone-analyzer
 // if an error is returned from a request to the tone-analyzer tone_chat endpoint,
-// return a 500, otherwise return a 200.
-app.get('/healthchecks/tone_analyzer_request_test', (req, res) => {
-  toneAnalyzer.tone_chat({
+// return a 502, otherwise return a 200.
+app.get('/healthcheck', (req, res) => {
+  const requestTimestamp = new Date().toISOString();
+  const requestPayload = {
     utterances: [{ text: 'sad', user: 'customer' }],
-  }, (err, tone) => {
+  };
+
+  toneAnalyzer.tone_chat(requestPayload, (err, tone) => {
+    const responseTimestamp = new Date().toISOString();
+    res.header('X-Watson-Learning-Opt-Out', true);
+
     if (err) {
-      return res.status(500).json({ error: err.toString() });
+      return res
+      .status(502)
+      .json({
+        logs: [
+          {
+            request: requestPayload,
+            request_timestamp: requestTimestamp,
+            response: err.toString(),
+            response_timestamp: responseTimestamp,
+          },
+        ],
+      });
     }
-    return res.status(200).json(tone);
+    return res
+      .status(200)
+      .json({
+        logs: [
+          {
+            request: requestPayload,
+            request_timestamp: requestTimestamp,
+            response: tone,
+            response_timestamp: responseTimestamp,
+          },
+        ],
+      });
   });
 });
 

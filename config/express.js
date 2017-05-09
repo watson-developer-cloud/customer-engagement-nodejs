@@ -28,6 +28,61 @@ module.exports = function (app) {
   app.set('view engine', 'jsx');
   app.engine('jsx', require('express-react-views').createEngine());
 
+  // Endpoint test for call to tone-analyzer
+  // if an error is returned from a request to the tone-analyzer tone_chat endpoint,
+  // return a 502, otherwise return a 200.
+  app.get('/healthcheck', (req, res) => {
+    const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+    const toneAnalyzer = new ToneAnalyzerV3({
+      // If unspecified here, the TONE_ANALYZER_USERNAME and
+      // TONE_ANALYZER_PASSWORD env properties will be checked
+      // After that, the SDK will fall back to the bluemix-provided VCAP_SERVICES environment property
+      // username: '<username>',
+      // password: '<password>',
+      url: 'https://gateway.watsonplatform.net/tone-analyzer/api',
+      version_date: '2016-05-19',
+      headers: {
+        'X-Watson-Learning-Opt-Out': true,
+      },
+    });
+
+    const requestTimestamp = new Date().toISOString();
+    const requestPayload = {
+      utterances: [{ text: 'sad', user: 'customer' }],
+    };
+
+    toneAnalyzer.tone_chat(requestPayload, (err, tone) => {
+      const responseTimestamp = new Date().toISOString();
+
+      if (err) {
+        return res
+        .status(502)
+        .json({
+          logs: [
+            {
+              request: requestPayload,
+              request_timestamp: requestTimestamp,
+              response: err.toString(),
+              response_timestamp: responseTimestamp,
+            },
+          ],
+        });
+      }
+      return res
+        .status(200)
+        .json({
+          logs: [
+            {
+              request: requestPayload,
+              request_timestamp: requestTimestamp,
+              response: tone,
+              response_timestamp: responseTimestamp,
+            },
+          ],
+        });
+    });
+  });
+
 
   // Only loaded when running in Bluemix
   if (process.env.VCAP_APPLICATION) {

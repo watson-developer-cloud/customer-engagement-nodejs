@@ -39,7 +39,7 @@ module.exports = function (app) {
       // After that, the SDK will fall back to the bluemix-provided VCAP_SERVICES environment property
       // username: '<username>',
       // password: '<password>',
-      url: 'https://gateway.watsonplatform.net/tone-analyzer/api',
+      // url: 'https://gateway.watsonplatform.net/tone-analyzer/api',
       version_date: '2016-05-19',
       headers: {
         'X-Watson-Learning-Opt-Out': true,
@@ -62,7 +62,7 @@ module.exports = function (app) {
             {
               request: requestPayload,
               request_timestamp: requestTimestamp,
-              response: err.toString(),
+              response: JSON.stringify(err),
               response_timestamp: responseTimestamp,
             },
           ],

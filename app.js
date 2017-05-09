@@ -52,15 +52,27 @@ app.post('/api/tone_chat', (req, res, next) => {
 // Endpoint test for call to tone-analyzer
 // if an error is returned from a request to the tone-analyzer tone_chat endpoint,
 // return a 502, otherwise return a 200.
-app.get('/healthcheck', (req, res) => {
+app.get('/health_check', (req, res) => {
+  const toneAnalyzerHealthcheck = new ToneAnalyzerV3({
+    // If unspecified here, the TONE_ANALYZER_USERNAME and
+    // TONE_ANALYZER_PASSWORD env properties will be checked
+    // After that, the SDK will fall back to the bluemix-provided VCAP_SERVICES environment property
+    // username: '<username>',
+    // password: '<password>',
+    url: 'https://gateway.watsonplatform.net/tone-analyzer/api',
+    version_date: '2016-05-19',
+    headers: {
+      'X-Watson-Learning-Opt-Out': true,
+    },
+  });
+
   const requestTimestamp = new Date().toISOString();
   const requestPayload = {
     utterances: [{ text: 'sad', user: 'customer' }],
   };
 
-  toneAnalyzer.tone_chat(requestPayload, (err, tone) => {
+  toneAnalyzerHealthcheck.tone_chat(requestPayload, (err, tone) => {
     const responseTimestamp = new Date().toISOString();
-    res.setHeader('X-Watson-Learning-Opt-Out', true);
 
     if (err) {
       return res

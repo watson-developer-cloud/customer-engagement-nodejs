@@ -21,13 +21,14 @@ const bodyParser = require('body-parser');
 const expressBrowserify = require('express-browserify');
 const path = require('path');
 const morgan = require('morgan');
-
+const monitor = require('express-status-monitor');
 module.exports = function (app) {
   app.enable('trust proxy');
   app.use(require('express-status-monitor')());
   app.set('view engine', 'jsx');
   app.engine('jsx', require('express-react-views').createEngine());
 
+  app.use(monitor());
 
   // Only loaded when running in Bluemix
   if (process.env.VCAP_APPLICATION) {

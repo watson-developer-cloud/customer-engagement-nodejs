@@ -51,6 +51,29 @@ app.post('/api/tone_chat', (req, res, next) => {
   });
 });
 
+
+// Endpoint test for call to tone-analyzer
+// if an error is returned from a request to the tone-analyzer tone_chat endpoint,
+// return a 502, otherwise return a 200.
+app.get('/healthcheck', (req, res) => {
+  const start = new Date();
+  const payload = { utterances: [] };
+
+  toneAnalyzer.tone_chat(payload, (err) => {
+    const response = {
+      status: 'normal',
+      response_time: (new Date() - start),
+    };
+
+    if (err) {
+      Object.assign(response, { status: 'down', error: err });
+      return res.status(502).json(response);
+    }
+    return res.json(response);
+  });
+});
+
+
 // error-handler settings
 require('./config/error-handler')(app);
 

@@ -57,7 +57,7 @@ app.post('/api/tone_chat', (req, res, next) => {
 // return a 502, otherwise return a 200.
 app.get('/healthcheck', (req, res) => {
   const start = new Date();
-  const payload = { utterances: [] };
+  const payload = { utterances: [{ text: 'sad', user: 'customer' }] };
 
   toneAnalyzer.tone_chat(payload, (err) => {
     const response = {

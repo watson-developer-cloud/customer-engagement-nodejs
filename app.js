@@ -56,12 +56,12 @@ app.post('/api/tone_chat', (req, res, next) => {
 
 // Endpoint to insert logging data for the data collection feature
 // to collect perceived accuracy of customer tones
-app.get('/log/customer_tones_accuracy', (req, res) => {
-  console.log('customer_tones_accuracy endpoint called');
+app.get('/log_perceived_accuracy', (req, res) => {
+  console.log('log_perceived_accuracy endpoint called');
   console.log(`data is ${JSON.stringify(req.body, 2, null)}`);
 
   const tonesAccuracyLogEntry = {
-    user_feedback: 'test',
+    vote: 'test',
     tone_analyzer_response: 'test',
     timestamp: (new Date(Date.now())).toISOString(),
     ip: req.ip,

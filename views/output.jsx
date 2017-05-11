@@ -11,8 +11,8 @@ export default function Output(props) {
 
       {/* Generate a div for each utterance in the conversation object */}
       <div>
-        { props.conversation.map(utterance =>
-          <ConversationItem key={utterance.statement.text} utterance={utterance} />,
+        { props.conversation.map((utterance, i) =>
+          <ConversationItem key={utterance.statement.text} utterance={utterance} utterance_id={i} />,
         )
       }
       </div>

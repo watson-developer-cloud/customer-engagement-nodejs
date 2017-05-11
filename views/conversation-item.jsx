@@ -1,4 +1,5 @@
 import React from 'react';
+import { ButtonsGroup, Icon, Colors } from 'watson-react-components';
 
 const ConversationItem = React.createClass({
   displayName: 'ConversationItem',
@@ -6,11 +7,20 @@ const ConversationItem = React.createClass({
   propTypes: {
     //eslint-disable-next-line
     utterance: React.PropTypes.object.isRequired,
+    utterance_id: React.PropTypes.number.isRequired,
+    //tone_analyzer_response: React.PropTypes.object.isRequired,
   },
 
   getDefaultProps() {
     return {
       utterance: '',
+      utterance_id: '',
+    };
+  },
+
+  getInitialState() {
+    return {
+      vote: null,
     };
   },
 
@@ -23,6 +33,10 @@ const ConversationItem = React.createClass({
       firstTone.tone === 'anxious' ||
       firstTone.tone === 'impolite')
     );
+  },
+
+  test(e, tone) {
+    console.log('voted: '.concat(this.props.utterance.statement.text, ' ', tone, ' ', e.target.value));
   },
 
   render() {
@@ -46,18 +60,30 @@ const ConversationItem = React.createClass({
           </div>
         </div>
         <div className="score_container">
+          <div className="agree_container"><span className="agree_link">Do you agree?</span></div>
           { tones.length === 0 ?
             <div className="tone_text">{ 'None' }</div> :
-            tones.map(t => (
-              <div key={`${t.tone}-${t.score}`}>
+            tones.map((t, i) => (
+              <div className="tone_results" key={`${t.tone}-${t.score}`}>
                 <div
                   className={this.isFirstToneNegative(tones) ? 'tone_text negative' : 'tone_text'}
                 >{t.tone}
                 </div>
-                <div
-                  className={this.isFirstToneNegative(tones) ? 'tone_score negative' : 'tone_score'}
-                >{parseFloat(t.score).toFixed(2)}
-                </div>
+                <ButtonsGroup
+                  type="radio"
+                  name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
+                  onClick={e => this.test(e, t.tone)}
+                  // onChange={}
+                  buttons={[{
+                    value: 0,
+                    id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
+                    text: <Icon type={'thumbs-up'} fill={Colors.gray_30} />,
+                  }, {
+                    value: 1,
+                    id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
+                    text: <Icon type={'thumbs-down'} fill={Colors.gray_30} />,
+                  }]}
+                />
               </div>
             ))}
         </div>

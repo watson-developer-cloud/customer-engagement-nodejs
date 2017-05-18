@@ -23,6 +23,9 @@ const app = express();
 // Bootstrap application settings
 require('./config/express')(app);
 
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
+
 // Instantiate Tone Analyzer service
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 const toneAnalyzer = new ToneAnalyzerV3({
@@ -38,6 +41,7 @@ const cloudant = new Cloudant({
   plugin: 'promises',
 });
 const tonesAccuracyDb = cloudant.db.use('customer-tones-accuracy');
+
 
 // Endpoint for web app
 app.get('/', (req, res) => {
@@ -56,16 +60,14 @@ app.post('/api/tone_chat', (req, res, next) => {
 
 // Endpoint to insert logging data for the data collection feature
 // to collect perceived accuracy of customer tones
-app.get('/log_perceived_accuracy', (req, res) => {
+app.post('/log_perceived_accuracy', (req, res) => {
   console.log('log_perceived_accuracy endpoint called');
   console.log(`data is ${JSON.stringify(req.body, 2, null)}`);
 
-  const tonesAccuracyLogEntry = {
-    vote: 'test',
-    tone_analyzer_response: 'test',
-    timestamp: (new Date(Date.now())).toISOString(),
-    ip: req.ip,
-  };
+  const tonesAccuracyLogEntry = req.body;
+  tonesAccuracyLogEntry.timestamp = (new Date(Date.now())).toISOString();
+  tonesAccuracyLogEntry.ip = req.ip;
+  console.log(`log entry is ${JSON.stringify(tonesAccuracyLogEntry)}`);
 
   tonesAccuracyDb.insert(tonesAccuracyLogEntry, (err, body) => {
     if (err) {

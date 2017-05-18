@@ -138,6 +138,9 @@
   margin-top: 0;
   width: 25%;
 }
+.other_tones {
+font-size: 0.75em;
+}
 
 .negative {
   color: #DB207C;
@@ -299,6 +302,6 @@ textarea {
   background: transparent;
 }
 
-.thumbsup {
-  margin-right: .5em;
+.thumb {
+  cursor: pointer;
 }

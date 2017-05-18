@@ -23,9 +23,19 @@
           "tone": "sad",
           "score": 0.62
         }
-      ]
-    }
-    ,
+      ],
+      "tone_analyzer_payload": {
+        "utterances_tone": [{
+          "utterance_id": 0,
+          "utterance_text": "My charger isn’t working.",
+          "tones": [{
+              "score": 0.61891,
+              "tone_id": "sad",
+              "tone_name": "sad"
+          }]
+        }]
+      }
+    },
     {
       "user": {
         "type": "agent",
@@ -41,7 +51,18 @@
           "tone": "polite",
           "score": 0.97
         }
-      ]
+      ],
+      "tone_analyzer_payload": {
+        "utterances_tone": [{
+          "utterance_id": 0,
+          "utterance_text": "Thanks for reaching out. Can you give me some more detail about the issue?",
+          "tones": [{
+              "score": 0.970211,
+              "tone_id": "polite",
+              "tone_name": "polite"
+          }]
+        }]
+      }
     },
     {
       "user": {
@@ -62,7 +83,22 @@
           "tone": "sad",
           "score": 0.85
         }
-      ]
+      ],
+      "tone_analyzer_payload": {
+        "utterances_tone": [{
+          "utterance_id": 0,
+          "utterance_text": "I put my charger in my phone last night to charge and it isn’t working. Which is ridiculous, it’s a new charger, I bought it yesterday.",
+          "tones": [{
+              "score": 0.571808,
+              "tone_id": "frustrated",
+              "tone_name": "frustrated"
+          }, {
+              "score": 0.850214,
+              "tone_id": "sad",
+              "tone_name": "sad"
+          }]
+        }]
+      }
     },
     {
       "user": {
@@ -83,7 +119,22 @@
           "tone": "sympathetic",
           "score": 0.79
         }
-      ]
+      ],
+      "tone_analyzer_payload": {
+        "utterances_tone": [{
+          "utterance_id": 0,
+          "utterance_text": "I’m sorry you’re having issues with charging. What kind of charger do you have?",
+          "tones": [{
+              "score": 0.804938,
+              "tone_id": "polite",
+              "tone_name": "polite"
+          }, {
+              "score": 0.795108,
+              "tone_id": "sympathetic",
+              "tone_name": "sympathetic"
+          }]
+        }]
+      }
     },
     {
       "user": {
@@ -95,8 +146,14 @@
         "text": "I’m using the charger that came with it.",
         "timestamp": "38 min ago"
       },
-      "tones": [
-      ]
+      "tones": [],
+      "tone_analyzer_payload": {
+        "utterances_tone": [{
+          "utterance_id": 0,
+          "utterance_text": "I’m using the charger that came with it.",
+          "tones": []
+        }]
+      }
     },
     {
       "user": {
@@ -113,7 +170,19 @@
           "tone": "polite",
           "score": 0.69
         }
-      ]
+      ],
+      "tone_analyzer_payload": {
+        "utterances_tone": [{
+          "utterance_id": 0,
+          "utterance_text": "Okay, fantastic. Could you now please plug the charger in for me, and then hold the power button down for about 10 seconds. After that, we should have you running :).",
+          "tones": [{
+              "score": 0.691479,
+              "tone_id": "polite",
+              "tone_name": "polite"
+          }]
+        }]
+      }
+
     },
     {
       "user": {
@@ -134,7 +203,22 @@
           "tone": "satisfied",
           "score": 0.72
         }
-      ]
+      ],
+      "tone_analyzer_payload": {
+        "utterances_tone": [{
+          "utterance_id": 0,
+          "utterance_text": "Wow! It’s working. Thank you for the tip.",
+          "tones": [{
+              "score": 0.85429,
+              "tone_id": "excited",
+              "tone_name": "excited"
+          }, {
+              "score": 0.722874,
+              "tone_id": "satisfied",
+              "tone_name": "satisfied"
+          }]
+        }]
+      }
     },
     {
       "user": {
@@ -159,7 +243,26 @@
           "tone": "satisfied",
           "score": 0.72
         }
-      ]
+      ],
+      "tone_analyzer_payload": {
+        "utterances_tone": [{
+          "utterance_id": 0,
+          "utterance_text": "Great! Do you need any more help today?",
+          "tones": [{
+              "score": 0.859641,
+              "tone_id": "excited",
+              "tone_name": "excited"
+          }, {
+              "score": 0.721663,
+              "tone_id": "polite",
+              "tone_name": "polite"
+          }, {
+              "score": 0.721886,
+              "tone_id": "satisfied",
+              "tone_name": "satisfied"
+          }]
+        }]
+      }
     }
   ]
 }

@@ -1,5 +1,5 @@
 import React from 'react';
-import ErrorMessage from './error-message.jsx'
+import ErrorMessage from './error-message.jsx';
 
 // string constants for text on input component
 const INPUT_PLACEHOLDER = 'Reply to ';

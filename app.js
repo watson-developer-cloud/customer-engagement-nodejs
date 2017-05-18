@@ -23,25 +23,32 @@ const app = express();
 // Bootstrap application settings
 require('./config/express')(app);
 
-const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+const bodyParser = require('body-parser');
+app.use(bodyParser.urlencoded({ extended: true }));
 
+// Instantiate Tone Analyzer service
+const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 const toneAnalyzer = new ToneAnalyzerV3({
-  // If unspecified here, the TONE_ANALYZER_USERNAME and
-  // TONE_ANALYZER_PASSWORD env properties will be checked
-  // After that, the SDK will fall back to the bluemix-provided VCAP_SERVICES environment property
-  // username: '<username>',
-  // password: '<password>',
   url: 'https://gateway.watsonplatform.net/tone-analyzer/api',
   version_date: '2016-05-19',
-  headers: {
-    'X-Watson-Learning-Opt-Out': true,
-  },
 });
 
+// Instantiate Cloudant service
+const Cloudant = require('cloudant');
+const cloudant = new Cloudant({
+  account: process.env.CLOUDANT_USERNAME,
+  password: process.env.CLOUDANT_PASSWORD,
+  plugin: 'promises',
+});
+const tonesAccuracyDb = cloudant.db.use('customer-tones-accuracy');
+
+
+// Endpoint for web app
 app.get('/', (req, res) => {
   res.render('index');
 });
 
+// Endpoint for call to Tone Analyzer tone_chat endpoint
 app.post('/api/tone_chat', (req, res, next) => {
   toneAnalyzer.tone_chat(req.body, (err, tone) => {
     if (err) {
@@ -51,10 +58,29 @@ app.post('/api/tone_chat', (req, res, next) => {
   });
 });
 
+// Endpoint to insert logging data for the data collection feature
+// to collect perceived accuracy of customer tones
+app.post('/log_perceived_accuracy', (req, res) => {
+  console.log('log_perceived_accuracy endpoint called');
+  console.log(`data is ${JSON.stringify(req.body, 2, null)}`);
 
-// Endpoint test for call to tone-analyzer
-// if an error is returned from a request to the tone-analyzer tone_chat endpoint,
-// return a 502, otherwise return a 200.
+  const tonesAccuracyLogEntry = req.body;
+  tonesAccuracyLogEntry.timestamp = (new Date(Date.now())).toISOString();
+  tonesAccuracyLogEntry.ip = req.ip;
+  console.log(`log entry is ${JSON.stringify(tonesAccuracyLogEntry)}`);
+
+  tonesAccuracyDb.insert(tonesAccuracyLogEntry, (err, body) => {
+    if (err) {
+      return console.log('[db.insert] ', err.message);
+    }
+    console.log(body);
+    res.send(body);
+  });
+});
+
+// Endpoint to run healthcheck for call to the Tone Analyzer service
+// If an error is returned from a request to the Tone Analyzer service tone_chat
+// endpoint, return a 502, otherwise return a 200.
 app.get('/healthcheck', (req, res) => {
   const start = new Date();
   const payload = { utterances: [{ text: 'sad', user: 'customer' }] };
@@ -72,7 +98,6 @@ app.get('/healthcheck', (req, res) => {
     return res.json(response);
   });
 });
-
 
 // error-handler settings
 require('./config/error-handler')(app);

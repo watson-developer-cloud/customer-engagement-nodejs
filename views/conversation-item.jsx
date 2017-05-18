@@ -8,19 +8,14 @@ const ConversationItem = React.createClass({
     //eslint-disable-next-line
     utterance: React.PropTypes.object.isRequired,
     utterance_id: React.PropTypes.number.isRequired,
-    //tone_analyzer_response: React.PropTypes.object.isRequired,
+    onVote: React.PropTypes.func.isRequired,
   },
 
   getDefaultProps() {
     return {
       utterance: '',
       utterance_id: '',
-    };
-  },
-
-  getInitialState() {
-    return {
-      vote: null,
+      onVote: React.PropTypes.func.isRequired,
     };
   },
 
@@ -35,8 +30,17 @@ const ConversationItem = React.createClass({
     );
   },
 
-  test(e, tone) {
-    console.log('voted: '.concat(this.props.utterance.statement.text, ' ', tone, ' ', e.target.value));
+  castVote(e, tone) {
+    const voteData = {
+      statement: this.props.utterance.statement.text,
+      user_feedback: {
+        tone,
+        vote: e.target.value,
+      },
+      tone_analyzer_payload: this.props.utterance.tone_analyzer_payload,
+    };
+    console.log('voted: '.concat(JSON.stringify(voteData)));
+    this.props.onVote.call(this, voteData);
   },
 
   render() {
@@ -72,14 +76,13 @@ const ConversationItem = React.createClass({
                 <ButtonsGroup
                   type="radio"
                   name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
-                  onClick={e => this.test(e, t.tone)}
-                  // onChange={}
+                  onClick={e => this.castVote(e, t.tone)}
                   buttons={[{
-                    value: 0,
+                    value: 1,
                     id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
                     text: <Icon type={'thumbs-up'} fill={Colors.gray_30} />,
                   }, {
-                    value: 1,
+                    value: 0,
                     id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
                     text: <Icon type={'thumbs-down'} fill={Colors.gray_30} />,
                   }]}

@@ -66,7 +66,24 @@ const ConversationItem = React.createClass({
         <div className="score_container">
           <div className="agree_container"><span className="agree_link">Do you agree?</span></div>
           { tones.length === 0 ?
-            <div className="tone_text">{ 'None' }</div> :
+            <div className="tone_results" key={'None'}>
+              <div className="tone_text">{ 'None' }</div>
+              <ButtonsGroup
+                type="radio"
+                name={'utterance'.concat('-', this.props.utterance_id)}
+                onClick={e => this.castVote(e, 'None')}
+                buttons={[{
+                  value: 1,
+                  id: 'utterance'.concat('-', this.props.utterance_id, '-None-true'),
+                  text: <Icon type={'thumbs-up'} fill={Colors.gray_30} />,
+                }, {
+                  value: 0,
+                  id: 'utterance'.concat('-', this.props.utterance_id, '-None-false'),
+                  text: <Icon type={'thumbs-down'} fill={Colors.gray_30} />,
+                }]}
+              />
+            </div>
+            :
             tones.map((t, i) => (
               <div className="tone_results" key={`${t.tone}-${t.score}`}>
                 <div

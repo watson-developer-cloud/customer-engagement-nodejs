@@ -29,7 +29,6 @@ app.use(bodyParser.urlencoded({ extended: true }));
 // Instantiate Tone Analyzer service
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 const toneAnalyzer = new ToneAnalyzerV3({
-  url: 'https://gateway.watsonplatform.net/tone-analyzer/api',
   version_date: '2016-05-19',
 });
 
@@ -58,16 +57,12 @@ app.post('/api/tone_chat', (req, res, next) => {
   });
 });
 
-// Endpoint to insert logging data for the data collection feature
-// to collect perceived accuracy of customer tones
+// Endpoint to log user feedback on perceived accuracy of a customer tone
+// provided by Tone Analyzer tone_chat for a given utterance
 app.post('/log_perceived_accuracy', (req, res) => {
-  console.log('log_perceived_accuracy endpoint called');
-  console.log(`data is ${JSON.stringify(req.body, 2, null)}`);
-
   const tonesAccuracyLogEntry = req.body;
   tonesAccuracyLogEntry.timestamp = (new Date(Date.now())).toISOString();
   tonesAccuracyLogEntry.ip = req.ip;
-  console.log(`log entry is ${JSON.stringify(tonesAccuracyLogEntry)}`);
 
   tonesAccuracyDb.insert(tonesAccuracyLogEntry, (err, body) => {
     if (err) {

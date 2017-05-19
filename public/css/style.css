@@ -179,6 +179,10 @@ textarea {
     float: left;
     margin-top: 0;
 }
+#newUtteranceTextArea:invalid {
+    box-shadow: none;
+}
+
 .input_avatar {
   float:left;
   width: 35px;

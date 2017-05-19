@@ -75,11 +75,11 @@ const ConversationItem = React.createClass({
                 buttons={[{
                   value: 1,
                   id: 'utterance'.concat('-', this.props.utterance_id, '-None-true'),
-                  text: <Icon type={'thumbs-up'} fill={Colors.gray_30} />,
+                  text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
                 }, {
                   value: 0,
                   id: 'utterance'.concat('-', this.props.utterance_id, '-None-false'),
-                  text: <Icon type={'thumbs-down'} fill={Colors.gray_30} />,
+                  text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
                 }]}
               />
             </div>
@@ -97,11 +97,11 @@ const ConversationItem = React.createClass({
                   buttons={[{
                     value: 1,
                     id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
-                    text: <Icon type={'thumbs-up'} fill={Colors.gray_30} />,
+                    text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
                   }, {
                     value: 0,
                     id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
-                    text: <Icon type={'thumbs-down'} fill={Colors.gray_30} />,
+                    text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
                   }]}
                 />
               </div>

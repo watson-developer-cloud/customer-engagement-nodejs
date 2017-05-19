@@ -138,6 +138,9 @@
   margin-top: 0;
   width: 25%;
 }
+.other_tones {
+font-size: 0.75em;
+}
 
 .negative {
   color: #DB207C;
@@ -176,6 +179,10 @@ textarea {
     float: left;
     margin-top: 0;
 }
+#newUtteranceTextArea:invalid {
+    box-shadow: none;
+}
+
 .input_avatar {
   float:left;
   width: 35px;
@@ -299,6 +306,7 @@ textarea {
   background: transparent;
 }
 
-.thumbsup {
-  margin-right: .5em;
+.thumb {
+  cursor: pointer;
+  height: 27px;
 }

@@ -61,19 +61,21 @@ const Demo = React.createClass({
     });
   },
 
-  onVote(voteData) {
-    fetch('/log_perceived_accuracy', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(voteData),
-    }).then(this.handleErrors).then((response) => {
-        console.log('vote logged: '.concat(response));
-    }).catch((error) => {
-      this.setState({
-        error,
-        //loading: false,
+  onVote(voteData, source) {
+    if (source === 'user') {
+      fetch('/log_perceived_accuracy', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(voteData),
+      }).then(this.handleErrors).then((response) => {
+          console.log('vote logged: '.concat(response));
+      }).catch((error) => {
+        this.setState({
+          error,
+          //loading: false,
+        });
       });
-    });
+    }
   },
 
   handleErrors(response) {
@@ -103,6 +105,7 @@ const Demo = React.createClass({
     // create new conversation turn json object to add to the conversation state
     const lastConversationTurn = this.state.conversation.utterances[this.state.conversation.utterances.length - 1];
     const newConversationTurn = {
+      source: 'user',
       user: {
         type: lastConversationTurn.user.type === 'agent' ? 'customer' : 'agent',
         name: lastConversationTurn.user.type === 'agent' ? this.state.conversation.customer.name : this.state.conversation.agent.name,

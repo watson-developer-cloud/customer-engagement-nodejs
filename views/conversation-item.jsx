@@ -31,6 +31,7 @@ const ConversationItem = React.createClass({
   },
 
   castVote(e, tone) {
+    const source = this.props.utterance.source;
     const voteData = {
       statement: this.props.utterance.statement.text,
       user_feedback: {
@@ -40,7 +41,7 @@ const ConversationItem = React.createClass({
       tone_analyzer_payload: this.props.utterance.tone_analyzer_payload,
     };
     console.log('voted: '.concat(JSON.stringify(voteData)));
-    this.props.onVote.call(this, voteData);
+    this.props.onVote.call(this, voteData, source);
   },
 
   render() {

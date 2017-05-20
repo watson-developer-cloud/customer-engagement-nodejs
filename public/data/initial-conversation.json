@@ -9,6 +9,7 @@
   },
   "utterances": [
     {
+      "source": "system",
       "user": {
         "type": "customer",
         "name": "Fred",
@@ -37,6 +38,7 @@
       }
     },
     {
+      "source": "system",
       "user": {
         "type": "agent",
         "name": "Agent",
@@ -65,6 +67,7 @@
       }
     },
     {
+      "source": "system",
       "user": {
         "type": "customer",
         "name": "Fred",
@@ -101,6 +104,7 @@
       }
     },
     {
+      "source": "system",
       "user": {
         "type": "agent",
         "name": "Agent",
@@ -137,6 +141,7 @@
       }
     },
     {
+      "source": "system",
       "user": {
         "type": "customer",
         "name": "Fred",
@@ -156,6 +161,7 @@
       }
     },
     {
+      "source": "system",
       "user": {
         "type": "agent",
         "name": "Agent",
@@ -185,6 +191,7 @@
 
     },
     {
+      "source": "system",
       "user": {
         "type": "customer",
         "name": "Fred",
@@ -221,6 +228,7 @@
       }
     },
     {
+      "source": "system",
       "user": {
         "type": "agent",
         "name": "Agent",

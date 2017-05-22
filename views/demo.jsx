@@ -18,6 +18,7 @@ const Demo = React.createClass({
   * The initial state for the conversation is stored in a json file
   */
   getInitialState() {
+    console.log('getInitialState called');
     const initialLastUtterance = initialConversation.utterances[initialConversation.utterances.length - 1];
     return {
       conversation: JSON.parse(initialConversationString),
@@ -25,6 +26,7 @@ const Demo = React.createClass({
       newUtterancePlaceholder: JSON.parse(initialConversationString).agent.handle,
       newUtteranceAvatarType: initialLastUtterance.user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
       showJson: false,
+      resetting: false,
     };
   },
 
@@ -132,12 +134,18 @@ const Demo = React.createClass({
   },
 
   resetConversation() {
+    console.log('resetConversation called from demo.jsx');
+    console.log('resetting is: '.concat(this.state.resetting));
     this.setState({
       conversation: JSON.parse(initialConversationString),
       error: null,
       newUtterancePlaceholder: JSON.parse(initialConversationString).agent.handle,
       newUtteranceAvatarType: 'customer_avatar',
+      resetting: true,
     });
+    console.log('post setState resetting is: '.concat(this.state.resetting));
+    // setTimeout(this.setState({ resetting: !this.state.resetting }), 100);
+    // console.log('resetting is: '.concat(this.state.resetting));
   },
 
   render() {
@@ -146,6 +154,7 @@ const Demo = React.createClass({
         <Output
           conversation={this.state.conversation.utterances}
           onVote={this.onVote}
+          resetting={this.state.resetting}
         />
         <Input
           error={this.state.error}

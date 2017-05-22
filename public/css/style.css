@@ -84,8 +84,8 @@
 .statement_container {
   float: left;
   width: 60%;
-  border-right: 1px solid #c7c7c7;
-  margin-right: 15px;
+  /* border-right: 1px solid #c7c7c7; */
+  /* margin-right: 15px; */
   margin-top: 0;
   min-height: 70px;
 }
@@ -114,6 +114,9 @@
   float: left;
   width: 25%;
   margin-top: 3px;
+  /* AW */
+  border-left: 1px solid #c7c7c7;
+  padding-left: 1rem;
 }
 
 .tone_results {
@@ -121,6 +124,8 @@
   display: block;
   width: 100%;
   align-items: center;
+  height: 0px !important;
+  /* margin-top: 0rem; */
 }
 
 .tone_text {
@@ -145,6 +150,7 @@ font-size: 0.75em;
 .negative {
   color: #DB207C;
 }
+/*
 .vote {
   float: right;
   margin-top: -4px;
@@ -152,6 +158,47 @@ font-size: 0.75em;
 .voteicon {
     margin-top: 0;
     margin-left: 1em;
+}
+*/
+
+.buttons-group {
+  float: right;
+  margin-top: 0;
+  width: auto;
+  /*margin-right: .3em;*/
+}
+
+.buttons-group--button {
+  border: none;
+  border-radius: 0rem;
+  /* padding: 0rem; */
+}
+
+.buttons-group--button_last {
+  border-radius: 0rem;
+  padding-right: 1rem;
+}
+
+.buttons-group--button_first {
+  border-radius: 0rem;
+  padding-right: 0rem;
+}
+
+.base--radio:checked+.buttons-group--button {
+  background: transparent;
+}
+
+.base--radio:checked + .buttons-group--button .icon {
+  fill: rgb(152, 85, 212);
+}
+
+.buttons-group--button:active {
+  background: transparent;
+}
+
+.thumb {
+  cursor: pointer;
+  height: 15px;
 }
 
 .contribute_container {
@@ -271,42 +318,4 @@ textarea {
 .service-error--message {
   color: #d74108;;
   text-align: center;
-}
-
-.buttons-group {
-  float: right;
-  margin-top: 0;
-  width: auto;
-  /*margin-right: .3em;*/
-}
-
-.buttons-group--button {
-  border: none;
-  border-radius: 0rem;
-}
-
-.buttons-group--button_last {
-  border-radius: 0rem;
-}
-
-.buttons-group--button_first {
-  border-radius: 0rem;
-  padding-right: 1rem;
-}
-
-.base--radio:checked+.buttons-group--button {
-  background: transparent;
-}
-
-.base--radio:checked + .buttons-group--button .icon {
-  fill: rgb(152, 85, 212);
-}
-
-.buttons-group--button:active {
-  background: transparent;
-}
-
-.thumb {
-  cursor: pointer;
-  height: 27px;
 }

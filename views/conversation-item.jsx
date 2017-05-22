@@ -9,6 +9,7 @@ const ConversationItem = React.createClass({
     utterance: React.PropTypes.object.isRequired,
     utterance_id: React.PropTypes.number.isRequired,
     onVote: React.PropTypes.func.isRequired,
+    resetting: React.PropTypes.bool.isRequired,
   },
 
   getDefaultProps() {
@@ -16,8 +17,17 @@ const ConversationItem = React.createClass({
       utterance: '',
       utterance_id: '',
       onVote: React.PropTypes.func.isRequired,
+      resetting: false,
     };
   },
+
+  /*
+  getInitialState() {
+    return {
+      resetting: this.props.resetting,
+    };
+  },
+  */
 
   isFirstToneNegative(tones) {
     const firstTone = tones[0];
@@ -69,20 +79,22 @@ const ConversationItem = React.createClass({
           { tones.length === 0 ?
             <div className="tone_results" key={'None'}>
               <div className="tone_text">{ 'None' }</div>
-              <ButtonsGroup
-                type="radio"
-                name={'utterance'.concat('-', this.props.utterance_id)}
-                onClick={e => this.castVote(e, 'None')}
-                buttons={[{
-                  value: 1,
-                  id: 'utterance'.concat('-', this.props.utterance_id, '-None-true'),
-                  text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
-                }, {
-                  value: 0,
-                  id: 'utterance'.concat('-', this.props.utterance_id, '-None-false'),
-                  text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
-                }]}
-              />
+              { !this.props.resetting ?
+                <ButtonsGroup
+                  type="radio"
+                  name={'utterance'.concat('-', this.props.utterance_id)}
+                  onClick={e => this.castVote(e, 'None')}
+                  buttons={[{
+                    value: 1,
+                    id: 'utterance'.concat('-', this.props.utterance_id, '-None-true'),
+                    text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
+                  }, {
+                    value: 0,
+                    id: 'utterance'.concat('-', this.props.utterance_id, '-None-false'),
+                    text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
+                  }]}
+                />
+              : null}
             </div>
             :
             tones.map((t, i) => (

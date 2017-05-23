@@ -120,21 +120,25 @@
 }
 
 .tone_results {
-  /* display: flex; */
-  display: block;
+  display: flex;
+  /* display: block; */
   width: 100%;
   align-items: center;
-  height: 0px !important;
+  /* height: 0px !important; */
+  /* justify-content: center; */
+  margin: 0rem;
   /* margin-top: 0rem; */
+  height: 1.75rem;
 }
 
 .tone_text {
-  float: left;
+  /* float: left; */
   font-size: .75em;
   /* margin-top: 0; */
-  margin-top: 1em;
+  /* margin-top: 1em; */
   padding-right: .5em;
   width: auto;
+  flex-grow: 2;
 }
 .tone_score {
   font-weight: bold;
@@ -162,16 +166,17 @@ font-size: 0.75em;
 */
 
 .buttons-group {
-  float: right;
+  /* float: right; */
   margin-top: 0;
   width: auto;
   /*margin-right: .3em;*/
+  /* flex-grow: 0; */
 }
 
 .buttons-group--button {
   border: none;
   border-radius: 0rem;
-  /* padding: 0rem; */
+  padding: 0rem;
 }
 
 .buttons-group--button_last {
@@ -296,6 +301,7 @@ textarea {
     margin-top: -20px;
     /* margin-right: -15px; */
     margin-right: 0;
+    margin-bottom: 0.5rem;
 }
 .agree_link {
     font-size: .75em;

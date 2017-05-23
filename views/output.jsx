@@ -8,7 +8,7 @@ const Output = React.createClass({
   propTypes: {
     conversation: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     onVote: React.PropTypes.func.isRequired,
-    resetting: React.PropTypes.bool.isRequired,
+    isResetting: React.PropTypes.bool.isRequired,
   },
 
   getDefaultProps() {
@@ -16,11 +16,12 @@ const Output = React.createClass({
       //eslint-disable-next-line
       conversation: null,
       onVote(curInput) { console.log('onVote '.concat(curInput)); },
-      resetting: false,
+      isResetting: false,
     };
   },
 
   render() {
+    console.log('output resetting: '.concat(this.props.isResetting));
     return (
       <div className="conversation">
         <div className="conversation_header">
@@ -37,7 +38,7 @@ const Output = React.createClass({
                 utterance={utterance}
                 utterance_id={i}
                 onVote={this.props.onVote}
-                resetting={this.props.resetting}
+                isResetting={this.props.isResetting}
               />,
           )
         }

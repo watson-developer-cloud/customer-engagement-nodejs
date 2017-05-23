@@ -26,7 +26,7 @@ const Demo = React.createClass({
       newUtterancePlaceholder: JSON.parse(initialConversationString).agent.handle,
       newUtteranceAvatarType: initialLastUtterance.user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
       showJson: false,
-      resetting: false,
+      isResetting: false,
     };
   },
 
@@ -134,18 +134,16 @@ const Demo = React.createClass({
   },
 
   resetConversation() {
-    console.log('resetConversation called from demo.jsx');
-    console.log('resetting is: '.concat(this.state.resetting));
     this.setState({
       conversation: JSON.parse(initialConversationString),
       error: null,
       newUtterancePlaceholder: JSON.parse(initialConversationString).agent.handle,
       newUtteranceAvatarType: 'customer_avatar',
-      resetting: true,
+      isResetting: true,
     });
-    console.log('post setState resetting is: '.concat(this.state.resetting));
-    // setTimeout(this.setState({ resetting: !this.state.resetting }), 100);
-    // console.log('resetting is: '.concat(this.state.resetting));
+    setTimeout(() => {
+      this.setState({ isResetting: false });
+    }, 1);
   },
 
   render() {
@@ -154,7 +152,7 @@ const Demo = React.createClass({
         <Output
           conversation={this.state.conversation.utterances}
           onVote={this.onVote}
-          resetting={this.state.resetting}
+          isResetting={this.state.isResetting}
         />
         <Input
           error={this.state.error}

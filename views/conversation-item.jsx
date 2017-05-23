@@ -9,25 +9,17 @@ const ConversationItem = React.createClass({
     utterance: React.PropTypes.object.isRequired,
     utterance_id: React.PropTypes.number.isRequired,
     onVote: React.PropTypes.func.isRequired,
-    resetting: React.PropTypes.bool.isRequired,
+    isResetting: React.PropTypes.bool.isRequired,
   },
 
   getDefaultProps() {
     return {
       utterance: '',
       utterance_id: '',
-      onVote: React.PropTypes.func.isRequired,
-      resetting: false,
+      onVote(curInput) { console.log('onVote '.concat(curInput)); },
+      isResetting: false,
     };
   },
-
-  /*
-  getInitialState() {
-    return {
-      resetting: this.props.resetting,
-    };
-  },
-  */
 
   isFirstToneNegative(tones) {
     const firstTone = tones[0];
@@ -59,6 +51,8 @@ const ConversationItem = React.createClass({
     const statement = this.props.utterance.statement;
     const tones = this.props.utterance.tones;
 
+    console.log('conversationitem isResetting: '.concat(this.props.isResetting));
+
     return (
       <div className={user.type === 'customer' ? 'speaker consumer' : 'speaker'}>
         <div className="avatar">
@@ -79,7 +73,8 @@ const ConversationItem = React.createClass({
           { tones.length === 0 ?
             <div className="tone_results" key={'None'}>
               <div className="tone_text">{ 'None' }</div>
-              { !this.props.resetting ?
+              { this.props.isResetting ?
+                null :
                 <ButtonsGroup
                   type="radio"
                   name={'utterance'.concat('-', this.props.utterance_id)}
@@ -94,7 +89,7 @@ const ConversationItem = React.createClass({
                     text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
                   }]}
                 />
-              : null}
+              }
             </div>
             :
             tones.map((t, i) => (
@@ -103,20 +98,23 @@ const ConversationItem = React.createClass({
                   className={this.isFirstToneNegative(tones) ? 'tone_text negative' : 'tone_text'}
                 >{t.tone}
                 </div>
-                <ButtonsGroup
-                  type="radio"
-                  name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
-                  onClick={e => this.castVote(e, t.tone)}
-                  buttons={[{
-                    value: 1,
-                    id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
-                    text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
-                  }, {
-                    value: 0,
-                    id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
-                    text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
-                  }]}
-                />
+                { this.props.isResetting ?
+                  null :
+                  <ButtonsGroup
+                    type="radio"
+                    name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
+                    onClick={e => this.castVote(e, t.tone)}
+                    buttons={[{
+                      value: 1,
+                      id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
+                      text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
+                    }, {
+                      value: 0,
+                      id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
+                      text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
+                    }]}
+                  />
+                }
               </div>
             ))}
         </div>

@@ -23,31 +23,18 @@ const app = express();
 // Bootstrap application settings
 require('./config/express')(app);
 
-const bodyParser = require('body-parser');
-app.use(bodyParser.urlencoded({ extended: true }));
-
 // Instantiate Tone Analyzer service
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 const toneAnalyzer = new ToneAnalyzerV3({
   version_date: '2016-05-19',
 });
 
-// Instantiate Cloudant service
-const Cloudant = require('cloudant');
-const cloudant = new Cloudant({
-  account: process.env.CLOUDANT_USERNAME,
-  password: process.env.CLOUDANT_PASSWORD,
-  plugin: 'promises',
-});
-const tonesAccuracyDb = cloudant.db.use('customer-tones-accuracy');
-
-
 // Endpoint for web app
 app.get('/', (req, res) => {
   res.render('index');
 });
 
-// Endpoint for call to Tone Analyzer tone_chat endpoint
+// Endpoint for Tone Analyzer tone_chat endpoint
 app.post('/api/tone_chat', (req, res, next) => {
   toneAnalyzer.tone_chat(req.body, (err, tone) => {
     if (err) {
@@ -57,25 +44,7 @@ app.post('/api/tone_chat', (req, res, next) => {
   });
 });
 
-// Endpoint to log user feedback on perceived accuracy of a customer tone
-// provided by Tone Analyzer tone_chat for a given utterance
-app.post('/log_perceived_accuracy', (req, res) => {
-  const tonesAccuracyLogEntry = req.body;
-  tonesAccuracyLogEntry.timestamp = (new Date(Date.now())).toISOString();
-  tonesAccuracyLogEntry.ip = req.ip;
-
-  tonesAccuracyDb.insert(tonesAccuracyLogEntry, (err, body) => {
-    if (err) {
-      return console.log('[db.insert] ', err.message);
-    }
-    console.log(body);
-    res.send(body);
-  });
-});
-
-// Endpoint to run healthcheck for call to the Tone Analyzer service
-// If an error is returned from a request to the Tone Analyzer service tone_chat
-// endpoint, return a 502, otherwise return a 200.
+// Endpoint for healthcheck for Tone Analyzer's tone_chat endpoint
 app.get('/healthcheck', (req, res) => {
   const start = new Date();
   const payload = { utterances: [{ text: 'sad', user: 'customer' }] };
@@ -93,6 +62,9 @@ app.get('/healthcheck', (req, res) => {
     return res.json(response);
   });
 });
+
+// User feedback module
+require('./user-feedback')(app);
 
 // error-handler settings
 require('./config/error-handler')(app);

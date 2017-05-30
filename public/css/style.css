@@ -13,7 +13,6 @@
   height: auto;
   min-height: 90px;
   overflow: auto;
-
 }
 
 .reset_link {
@@ -64,28 +63,26 @@
   width: 70px;
 }
 .customer_avatar {
-    background-image: url("/images/customer.png");
-    height: 70px;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border: 1px solid #c7c7c7;
-    border-radius: 10px;
+  background-image: url("/images/customer.png");
+  height: 70px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border: 1px solid #c7c7c7;
+  border-radius: 10px;
 }
 
 .agent_avatar {
-    background-image: url("/images/agent.png");
-    height: 70px;
-    background-repeat: no-repeat;
-    background-size: 100%;
-    border: 1px solid #c7c7c7;
-    border-radius: 10px;
+  background-image: url("/images/agent.png");
+  height: 70px;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  border: 1px solid #c7c7c7;
+  border-radius: 10px;
 }
 
 .statement_container {
   float: left;
   width: 60%;
-  /* border-right: 1px solid #c7c7c7; */
-  /* margin-right: 15px; */
   margin-top: 0;
   min-height: 70px;
 }
@@ -114,28 +111,20 @@
   float: left;
   width: 25%;
   margin-top: 3px;
-  /* AW */
   border-left: 1px solid #c7c7c7;
   padding-left: 1rem;
 }
 
 .tone_results {
   display: flex;
-  /* display: block; */
   width: 100%;
   align-items: center;
-  /* height: 0px !important; */
-  /* justify-content: center; */
   margin: 0rem;
-  /* margin-top: 0rem; */
   height: 1.75rem;
 }
 
 .tone_text {
-  /* float: left; */
   font-size: .75em;
-  /* margin-top: 0; */
-  /* margin-top: 1em; */
   padding-right: .5em;
   width: auto;
   flex-grow: 2;
@@ -148,29 +137,16 @@
   width: 25%;
 }
 .other_tones {
-font-size: 0.75em;
+  font-size: 0.75em;
 }
 
 .negative {
   color: #DB207C;
 }
-/*
-.vote {
-  float: right;
-  margin-top: -4px;
-}
-.voteicon {
-    margin-top: 0;
-    margin-left: 1em;
-}
-*/
 
 .buttons-group {
-  /* float: right; */
   margin-top: 0;
   width: auto;
-  /*margin-right: .3em;*/
-  /* flex-grow: 0; */
 }
 
 .buttons-group--button {
@@ -227,12 +203,13 @@ textarea {
 }
 
 .input_area {
-    width: 90%;
-    float: left;
-    margin-top: 0;
+  width: 90%;
+  float: left;
+  margin-top: 0;
 }
+
 #newUtteranceTextArea:invalid {
-    box-shadow: none;
+  box-shadow: none;
 }
 
 .input_avatar {
@@ -272,7 +249,7 @@ textarea {
 }
 
 .alerttext {
-    color: red;
+  color: red;
 }
 
 .question-input--input {
@@ -297,14 +274,13 @@ textarea {
 }
 
 .agree_container {
-    float: right;
-    margin-top: -20px;
-    /* margin-right: -15px; */
-    margin-right: 0;
-    margin-bottom: 0.5rem;
+  float: right;
+  margin-top: -20px;
+  margin-right: 0;
+  margin-bottom: 0.5rem;
 }
 .agree_link {
-    font-size: .75em;
+  font-size: .75em;
 }
 
 .base--a {
@@ -322,6 +298,6 @@ textarea {
 }
 
 .service-error--message {
-  color: #d74108;;
+  color: #d74108;
   text-align: center;
 }

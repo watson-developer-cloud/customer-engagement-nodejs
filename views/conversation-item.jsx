@@ -1,4 +1,5 @@
 import React from 'react';
+import { ButtonsGroup, Icon, Colors } from 'watson-react-components';
 
 const ConversationItem = React.createClass({
   displayName: 'ConversationItem',
@@ -6,11 +7,17 @@ const ConversationItem = React.createClass({
   propTypes: {
     //eslint-disable-next-line
     utterance: React.PropTypes.object.isRequired,
+    utterance_id: React.PropTypes.number.isRequired,
+    onVote: React.PropTypes.func.isRequired,
+    isResetting: React.PropTypes.bool.isRequired,
   },
 
   getDefaultProps() {
     return {
       utterance: '',
+      utterance_id: '',
+      onVote(curInput) { console.log('onVote '.concat(curInput)); },
+      isResetting: false,
     };
   },
 
@@ -25,10 +32,26 @@ const ConversationItem = React.createClass({
     );
   },
 
+  castVote(e, tone) {
+    const source = this.props.utterance.source;
+    const voteData = {
+      statement: this.props.utterance.statement.text,
+      user_feedback: {
+        tone,
+        vote: e.target.value,
+      },
+      tone_analyzer_payload: this.props.utterance.tone_analyzer_payload,
+    };
+    console.log('voted: '.concat(JSON.stringify(voteData)));
+    this.props.onVote.call(this, voteData, source);
+  },
+
   render() {
     const user = this.props.utterance.user;
     const statement = this.props.utterance.statement;
     const tones = this.props.utterance.tones;
+
+    console.log('conversationitem isResetting: '.concat(this.props.isResetting));
 
     return (
       <div className={user.type === 'customer' ? 'speaker consumer' : 'speaker'}>
@@ -46,18 +69,52 @@ const ConversationItem = React.createClass({
           </div>
         </div>
         <div className="score_container">
+          <div className="agree_container"><span className="agree_link">Do you agree?</span></div>
           { tones.length === 0 ?
-            <div className="tone_text">{ 'None' }</div> :
-            tones.map(t => (
-              <div key={`${t.tone}-${t.score}`}>
+            <div className="tone_results" key={'None'}>
+              <div className="tone_text">{ 'None' }</div>
+              { this.props.isResetting ?
+                null :
+                <ButtonsGroup
+                  type="radio"
+                  name={'utterance'.concat('-', this.props.utterance_id)}
+                  onClick={e => this.castVote(e, 'None')}
+                  buttons={[{
+                    value: 1,
+                    id: 'utterance'.concat('-', this.props.utterance_id, '-None-true'),
+                    text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
+                  }, {
+                    value: 0,
+                    id: 'utterance'.concat('-', this.props.utterance_id, '-None-false'),
+                    text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
+                  }]}
+                />
+              }
+            </div>
+            :
+            tones.map((t, i) => (
+              <div className="tone_results" key={`${t.tone}-${t.score}`}>
                 <div
                   className={this.isFirstToneNegative(tones) ? 'tone_text negative' : 'tone_text'}
                 >{t.tone}
                 </div>
-                <div
-                  className={this.isFirstToneNegative(tones) ? 'tone_score negative' : 'tone_score'}
-                >{parseFloat(t.score).toFixed(2)}
-                </div>
+                { this.props.isResetting ?
+                  null :
+                  <ButtonsGroup
+                    type="radio"
+                    name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
+                    onClick={e => this.castVote(e, t.tone)}
+                    buttons={[{
+                      value: 1,
+                      id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
+                      text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
+                    }, {
+                      value: 0,
+                      id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
+                      text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
+                    }]}
+                  />
+                }
               </div>
             ))}
         </div>

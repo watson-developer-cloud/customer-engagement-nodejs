@@ -23,25 +23,18 @@ const app = express();
 // Bootstrap application settings
 require('./config/express')(app);
 
+// Instantiate Tone Analyzer service
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
-
 const toneAnalyzer = new ToneAnalyzerV3({
-  // If unspecified here, the TONE_ANALYZER_USERNAME and
-  // TONE_ANALYZER_PASSWORD env properties will be checked
-  // After that, the SDK will fall back to the bluemix-provided VCAP_SERVICES environment property
-  // username: '<username>',
-  // password: '<password>',
-  url: 'https://gateway.watsonplatform.net/tone-analyzer/api',
   version_date: '2016-05-19',
-  headers: {
-    'X-Watson-Learning-Opt-Out': true,
-  },
 });
 
+// Endpoint for web app
 app.get('/', (req, res) => {
   res.render('index');
 });
 
+// Endpoint for Tone Analyzer tone_chat endpoint
 app.post('/api/tone_chat', (req, res, next) => {
   toneAnalyzer.tone_chat(req.body, (err, tone) => {
     if (err) {
@@ -51,10 +44,7 @@ app.post('/api/tone_chat', (req, res, next) => {
   });
 });
 
-
-// Endpoint test for call to tone-analyzer
-// if an error is returned from a request to the tone-analyzer tone_chat endpoint,
-// return a 502, otherwise return a 200.
+// Endpoint for healthcheck for Tone Analyzer's tone_chat endpoint
 app.get('/healthcheck', (req, res) => {
   const start = new Date();
   const payload = { utterances: [{ text: 'sad', user: 'customer' }] };
@@ -73,6 +63,8 @@ app.get('/healthcheck', (req, res) => {
   });
 });
 
+// User feedback module
+require('./user-feedback')(app);
 
 // error-handler settings
 require('./config/error-handler')(app);

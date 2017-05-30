@@ -18,6 +18,7 @@ const Demo = React.createClass({
   * The initial state for the conversation is stored in a json file
   */
   getInitialState() {
+    console.log('getInitialState called');
     const initialLastUtterance = initialConversation.utterances[initialConversation.utterances.length - 1];
     return {
       conversation: JSON.parse(initialConversationString),
@@ -25,6 +26,7 @@ const Demo = React.createClass({
       newUtterancePlaceholder: JSON.parse(initialConversationString).agent.handle,
       newUtteranceAvatarType: initialLastUtterance.user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
       showJson: false,
+      isResetting: false,
     };
   },
 
@@ -61,6 +63,23 @@ const Demo = React.createClass({
     });
   },
 
+  onVote(voteData, source) {
+    if (source === 'user') {
+      fetch('/log_perceived_accuracy', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify(voteData),
+      }).then(this.handleErrors).then((response) => {
+          console.log('vote logged: '.concat(response));
+      }).catch((error) => {
+        this.setState({
+          error,
+          //loading: false,
+        });
+      });
+    }
+  },
+
   handleErrors(response) {
     if (!response.ok) {
       throw Error(response.statusText);
@@ -68,31 +87,38 @@ const Demo = React.createClass({
     return response;
   },
 
-  updateConversation(tone) {
-    const tonesRaw = tone.utterances_tone[0].tones;
+  /**
+  * Create a new conversation object to be added to the conversation state.
+  * The toneAnalyzerPayload is parsed and mapped into a format usable by the
+  * front-end UI.
+  */
+  updateConversation(toneAnalyzerPayload) {
+    const tonesRaw = toneAnalyzerPayload.utterances_tone[0].tones;
 
-    // sort tones in descending order
+    // sort raw tones in descending order
     tonesRaw.sort((tone1, tone2) =>
       parseFloat(tone2.score) - parseFloat(tone1.score),
     );
 
-    // map each tone to the required json object
+    // map each raw tone to the required json object
     const tones = tonesRaw.map(t => ({ tone: t.tone_name, score: t.score }));
     const tonesShortlist = tones.slice(0, MAX_TONES_TO_DISPLAY);
 
     // create new conversation turn json object to add to the conversation state
     const lastConversationTurn = this.state.conversation.utterances[this.state.conversation.utterances.length - 1];
     const newConversationTurn = {
+      source: 'user',
       user: {
         type: lastConversationTurn.user.type === 'agent' ? 'customer' : 'agent',
         name: lastConversationTurn.user.type === 'agent' ? this.state.conversation.customer.name : this.state.conversation.agent.name,
         handle: lastConversationTurn.user.type === 'agent' ? this.state.conversation.customer.handle : this.state.conversation.agent.handle,
       },
       statement: {
-        text: tone.utterances_tone[0].utterance_text,
+        text: toneAnalyzerPayload.utterances_tone[0].utterance_text,
         timestamp: 'now',
       },
       tones: tonesShortlist,
+      tone_analyzer_payload: toneAnalyzerPayload,
     };
 
     // push new conversation turn to the conversation state and setState
@@ -113,13 +139,21 @@ const Demo = React.createClass({
       error: null,
       newUtterancePlaceholder: JSON.parse(initialConversationString).agent.handle,
       newUtteranceAvatarType: 'customer_avatar',
+      isResetting: true,
     });
+    setTimeout(() => {
+      this.setState({ isResetting: false });
+    }, 1);
   },
 
   render() {
     return (
       <div>
-        <Output conversation={this.state.conversation.utterances} />
+        <Output
+          conversation={this.state.conversation.utterances}
+          onVote={this.onVote}
+          isResetting={this.state.isResetting}
+        />
         <Input
           error={this.state.error}
           onSubmit={this.onSubmit}

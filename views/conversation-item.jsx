@@ -54,69 +54,121 @@ const ConversationItem = React.createClass({
     console.log('conversationitem isResetting: '.concat(this.props.isResetting));
 
     return (
-      <div className={user.type === 'customer' ? 'speaker consumer' : 'speaker'}>
-        <div className="avatar">
-          <div className={user.type === 'customer' ? 'customer_avatar' : 'agent_avatar'} />
-        </div>
-        <div className="statement_container">
-          <span className="speaker_name">{user.name}</span>
-          <span className="speaker_handle">{user.handle}</span>
-          <span className="time_stamp"> {statement.timestamp}</span>
-          <div
-            className={this.isFirstToneNegative(tones) ? 'speaker_statement negative' : 'speaker_statement'}
-          >
-            { statement.text }
+      <div>
+        <div className={user.type === 'customer' ? 'speaker consumer' : 'speaker'}>
+          <div className="avatar">
+            <div className={user.type === 'customer' ? 'customer_avatar' : 'agent_avatar'} />
           </div>
-        </div>
-        <div className="score_container">
-          <div className="agree_container"><span className="agree_link">Do you agree?</span></div>
-          { tones.length === 0 ?
-            <div className="tone_results" key={'None'}>
-              <div className="tone_text">{ 'None' }</div>
-              { this.props.isResetting ?
-                null :
-                <ButtonsGroup
-                  type="radio"
-                  name={'utterance'.concat('-', this.props.utterance_id)}
-                  onClick={e => this.castVote(e, 'None')}
-                  buttons={[{
-                    value: 1,
-                    id: 'utterance'.concat('-', this.props.utterance_id, '-None-true'),
-                    text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
-                  }, {
-                    value: 0,
-                    id: 'utterance'.concat('-', this.props.utterance_id, '-None-false'),
-                    text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
-                  }]}
-                />
-              }
+          <div className="statement_container">
+            <span className="speaker_name">{user.name}</span>
+            <span className="speaker_handle">{user.handle}</span>
+            <span className="time_stamp"> {statement.timestamp}</span>
+            <div
+              className={this.isFirstToneNegative(tones) ? 'speaker_statement negative' : 'speaker_statement'}
+            >
+              { statement.text }
             </div>
-            :
-            tones.map((t, i) => (
-              <div className="tone_results" key={`${t.tone}-${t.score}`}>
-                <div
-                  className={this.isFirstToneNegative(tones) ? 'tone_text negative' : 'tone_text'}
-                >{t.tone}
-                </div>
+          </div>
+          <div className="score_container">
+            <div className="agree_container"><span className="agree_link">Do you agree?</span></div>
+            { tones.length === 0 ?
+              <div className="tone_results" key={'None'}>
+                <div className="tone_text">{ 'None' }</div>
                 { this.props.isResetting ?
                   null :
                   <ButtonsGroup
                     type="radio"
-                    name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
-                    onClick={e => this.castVote(e, t.tone)}
+                    name={'utterance'.concat('-', this.props.utterance_id)}
+                    onClick={e => this.castVote(e, 'None')}
                     buttons={[{
                       value: 1,
-                      id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
+                      id: 'utterance'.concat('-', this.props.utterance_id, '-None-true'),
                       text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
                     }, {
                       value: 0,
-                      id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
+                      id: 'utterance'.concat('-', this.props.utterance_id, '-None-false'),
                       text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
                     }]}
                   />
                 }
               </div>
-            ))}
+              :
+              tones.map((t, i) => (
+                <div className="tone_results" key={`${t.tone}-${t.score}`}>
+                  <div
+                    className={this.isFirstToneNegative(tones) ? 'tone_text negative' : 'tone_text'}
+                  >{t.tone}
+                  </div>
+                  { this.props.isResetting ?
+                    null :
+                    <ButtonsGroup
+                      type="radio"
+                      name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
+                      onClick={e => this.castVote(e, t.tone)}
+                      buttons={[{
+                        value: 1,
+                        id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
+                        text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
+                      }, {
+                        value: 0,
+                        id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
+                        text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
+                      }]}
+                    />
+                  }
+                </div>
+              ))}
+            <div className="other_tones">
+              <a className="base--a jumbotron--nav-link" href="#test">What other tones...?</a>
+            </div>
+          </div>
+        </div>
+        <div className="speaker hidden">
+          <span className="description"> What other tones do you think are in this staement?</span>
+          <input
+            className="base--checkbox"
+            type="checkbox"
+            id="cb1" name="cb"
+            value="some cb"
+          />
+          <label
+            className="base--inline-label"
+            htmlFor="cb1"
+          >Option 1
+          </label>
+          <input
+            className="base--checkbox"
+            type="checkbox"
+            id="cb2" name="cb"
+            value="some cb"
+          />
+          <label
+            className="base--inline-label"
+            htmlFor="cb2"
+          >Option 2
+          </label>
+          <input
+            className="base--checkbox"
+            type="checkbox"
+            id="cb3" name="cb"
+            value="some cb"
+          />
+          <label
+            className="base--inline-label"
+            htmlFor="cb3"
+          >Option 3
+          </label>
+          <input
+            className="base--checkbox"
+            type="checkbox"
+            id="cb4" name="cb"
+            value="some cb"
+          />
+          <label
+            className="base--inline-label"
+            htmlFor="cb4"
+          >Option 4
+          </label>
         </div>
       </div>
     );

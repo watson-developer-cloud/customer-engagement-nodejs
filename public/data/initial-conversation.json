@@ -21,8 +21,8 @@
       },
       "tones": [
         {
-          "tone": "sad",
-          "score": 0.62
+          "tone": "frustrated",
+          "score": 0.79
         }
       ],
       "tone_analyzer_payload": {
@@ -30,9 +30,9 @@
           "utterance_id": 0,
           "utterance_text": "My charger isn’t working.",
           "tones": [{
-              "score": 0.61891,
-              "tone_id": "sad",
-              "tone_name": "sad"
+              "score": 0.786501,
+              "tone_id": "frustrated",
+              "tone_name": "frustrated"
           }]
         }]
       }
@@ -51,7 +51,7 @@
       "tones": [
         {
           "tone": "polite",
-          "score": 0.97
+          "score": 0.96
         }
       ],
       "tone_analyzer_payload": {
@@ -59,7 +59,7 @@
           "utterance_id": 0,
           "utterance_text": "Thanks for reaching out. Can you give me some more detail about the issue?",
           "tones": [{
-              "score": 0.970211,
+              "score": 0.96062,
               "tone_id": "polite",
               "tone_name": "polite"
           }]
@@ -80,11 +80,11 @@
       "tones": [
         {
           "tone": "frustrated",
-          "score": 0.57
+          "score": 0.81
         },
         {
           "tone": "sad",
-          "score": 0.85
+          "score": 0.68
         }
       ],
       "tone_analyzer_payload": {
@@ -92,11 +92,11 @@
           "utterance_id": 0,
           "utterance_text": "I put my charger in my phone last night to charge and it isn’t working. Which is ridiculous, it’s a new charger, I bought it yesterday.",
           "tones": [{
-              "score": 0.571808,
+              "score": 0.806842,
               "tone_id": "frustrated",
               "tone_name": "frustrated"
           }, {
-              "score": 0.850214,
+              "score": 0.680979,
               "tone_id": "sad",
               "tone_name": "sad"
           }]
@@ -117,11 +117,11 @@
       "tones": [
         {
           "tone": "polite",
-          "score": 0.80
+          "score": 0.58
         },
         {
           "tone": "sympathetic",
-          "score": 0.79
+          "score": 0.69
         }
       ],
       "tone_analyzer_payload": {
@@ -129,11 +129,11 @@
           "utterance_id": 0,
           "utterance_text": "I’m sorry you’re having issues with charging. What kind of charger do you have?",
           "tones": [{
-              "score": 0.804938,
+              "score": 0.583417,
               "tone_id": "polite",
               "tone_name": "polite"
           }, {
-              "score": 0.795108,
+              "score": 0.692724,
               "tone_id": "sympathetic",
               "tone_name": "sympathetic"
           }]
@@ -168,7 +168,7 @@
         "handle": "@Agent_technology_company"
       },
       "statement": {
-        "text": "Okay, fantastic. Could you now please plug the charger in for me, and then hold the power button down for about 10 seconds. After that, we should have you running :).",
+        "text": "Fantastic. Could you now please plug the charger in for me, and then hold the power button down for about 10 seconds. After that, we should have you running :).",
         "timestamp": "24 minutes ago"
       },
       "tones": [
@@ -180,9 +180,9 @@
       "tone_analyzer_payload": {
         "utterances_tone": [{
           "utterance_id": 0,
-          "utterance_text": "Okay, fantastic. Could you now please plug the charger in for me, and then hold the power button down for about 10 seconds. After that, we should have you running :).",
+          "utterance_text": "Fantastic. Could you now please plug the charger in for me, and then hold the power button down for about 10 seconds. After that, we should have you running :).",
           "tones": [{
-              "score": 0.691479,
+              "score": 0.686444,
               "tone_id": "polite",
               "tone_name": "polite"
           }]
@@ -204,11 +204,15 @@
       "tones": [
         {
           "tone": "excited",
-          "score": 0.85
+          "score": 0.74
+        },
+        {
+          "tone": "polite",
+          "score": 0.63
         },
         {
           "tone": "satisfied",
-          "score": 0.72
+          "score": 0.81
         }
       ],
       "tone_analyzer_payload": {
@@ -216,11 +220,15 @@
           "utterance_id": 0,
           "utterance_text": "Wow! It’s working. Thank you for the tip.",
           "tones": [{
-              "score": 0.85429,
+              "score": 0.741736,
               "tone_id": "excited",
               "tone_name": "excited"
           }, {
-              "score": 0.722874,
+              "score": 0.631955,
+              "tone_id": "polite",
+              "tone_name": "polite"
+          }, {
+              "score": 0.805751,
               "tone_id": "satisfied",
               "tone_name": "satisfied"
           }]
@@ -235,37 +243,37 @@
         "handle": "@Agent_technology_company"
       },
       "statement": {
-        "text": "Great! Do you need any more help today?",
+        "text": "Awesome! Do you need any more help today?",
         "timestamp": "16 minutes ago"
       },
       "tones": [
         {
           "tone": "excited",
-          "score": 0.86
+          "score": 0.51
         },
         {
           "tone": "polite",
-          "score": 0.72
+          "score": 0.66
         },
         {
           "tone": "satisfied",
-          "score": 0.72
+          "score": 0.78
         }
       ],
       "tone_analyzer_payload": {
         "utterances_tone": [{
           "utterance_id": 0,
-          "utterance_text": "Great! Do you need any more help today?",
+          "utterance_text": "Awesome! Do you need any more help today?",
           "tones": [{
-              "score": 0.859641,
+              "score": 0.510956,
               "tone_id": "excited",
               "tone_name": "excited"
           }, {
-              "score": 0.721663,
+              "score": 0.657308,
               "tone_id": "polite",
               "tone_name": "polite"
           }, {
-              "score": 0.721886,
+              "score": 0.784154,
               "tone_id": "satisfied",
               "tone_name": "satisfied"
           }]

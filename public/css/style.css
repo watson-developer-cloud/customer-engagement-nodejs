@@ -6,6 +6,39 @@
   float: left;
 }
 
+.checkbox_group_container {
+  margin-top: 1em;
+  margin-bottom: 1em;
+  overflow: auto;
+  padding: 20px;
+  width: 766px;
+}
+
+.checkbox_container {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  margin: 0rem;
+  height: 1.75rem;
+}
+
+.checkbox_input {
+  margin-top: 0;
+  width: auto;ß
+}
+
+.checkbox_label {
+  /* float: left; */
+  font-size: .75em;
+  /* margin-top: 0; */
+  /* margin-top: 1em; */
+  padding-right: .5em;
+  width: auto;
+  flex-grow: 2;
+}
+
+
+
 .conversation_frame {
   width: 700px;
   margin:auto;
@@ -121,13 +154,9 @@
 
 .tone_results {
   display: flex;
-  /* display: block; */
   width: 100%;
   align-items: center;
-  /* height: 0px !important; */
-  /* justify-content: center; */
   margin: 0rem;
-  /* margin-top: 0rem; */
   height: 1.75rem;
 }
 

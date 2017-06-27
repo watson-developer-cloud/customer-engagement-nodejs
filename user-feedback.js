@@ -20,7 +20,8 @@ require('dotenv').config({ silent: true });
 // Instantiate cloudant db for storing user feedback
 const Cloudant = require('cloudant');
 
-const LOG_ENDPOINT = '/log_perceived_accuracy';
+const PERCEIVED_ACCURACY_ENDPOINT = '/log_perceived_accuracy';
+const ALTERNATIVE_CUSTOMER_TONES_ENDPOINT = '/log_alternative_customer_tones';
 
 // Endpoint to log user feedback on perceived accuracy of a customer tone
 // predicted by Tone Analyzer tone_chat
@@ -31,26 +32,45 @@ module.exports = function (app) {
       password: process.env.CLOUDANT_PASSWORD,
       plugin: 'promises',
     });
-    const db = cloudant.db.use(process.env.PERCEIVED_ACCURACY_DB);
+    const accuracyDb = cloudant.db.use(process.env.PERCEIVED_ACCURACY_DB);
+    const altTonesDb = cloudant.db.use(process.env.ALTERNATIVE_CUSTOMER_TONES_DB);
 
-    app.post(LOG_ENDPOINT, (req, res, next) => {
+    app.post(PERCEIVED_ACCURACY_ENDPOINT, (req, res, next) => {
       const feedback = req.body;
       feedback.timestamp = (new Date(Date.now())).toISOString();
       feedback.ip = req.ip;
 
-      db.insert(feedback, (err) => {
+      accuracyDb.insert(feedback, (err) => {
         if (err) {
           return next(err);
         }
         return res.json({});
       });
     });
-    console.log('Using cloudant to store feedback'); // eslint-disable-line no-console
+
+    app.post(ALTERNATIVE_CUSTOMER_TONES_ENDPOINT, (req, res, next) => {
+      const feedback = req.body;
+      feedback.timestamp = (new Date(Date.now())).toISOString();
+      feedback.ip = req.ip;
+
+      altTonesDb.insert(feedback, (err) => {
+        if (err) {
+          return next(err);
+        }
+        return res.json({});
+      });
+    });
   } else {
-    app.post(LOG_ENDPOINT, (req, res) => {
+    app.post(PERCEIVED_ACCURACY_ENDPOINT, (req, res) => {
       console.log('Feedback from user:', req.body); // eslint-disable-line no-console
       res.json({});
     });
+
+    app.post(ALTERNATIVE_CUSTOMER_TONES_ENDPOINT, (req, res) => {
+      console.log('Feedback from user:', req.body); // eslint-disable-line no-console
+      res.json({});
+    });
+
     console.log('Using the console to print feedback'); // eslint-disable-line no-console
   }
 };

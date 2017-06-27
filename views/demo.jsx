@@ -18,7 +18,6 @@ const Demo = React.createClass({
   * The initial state for the conversation is stored in a json file
   */
   getInitialState() {
-    console.log('getInitialState called');
     const initialLastUtterance = initialConversation.utterances[initialConversation.utterances.length - 1];
     return {
       conversation: JSON.parse(initialConversationString),
@@ -78,6 +77,21 @@ const Demo = React.createClass({
         });
       });
     }
+  },
+
+  onRecordOtherTone(newToneData) {
+    fetch('/log_alternative_customer_tones', {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify(newToneData),
+    }).then(this.handleErrors).then((response) => {
+        console.log('new tone logged: '.concat(response));
+    }).catch((error) => {
+      this.setState({
+        error,
+        //loading: false,
+      });
+    });
   },
 
   handleErrors(response) {
@@ -152,6 +166,7 @@ const Demo = React.createClass({
         <Output
           conversation={this.state.conversation.utterances}
           onVote={this.onVote}
+          onRecordOtherTone={this.onRecordOtherTone}
           isResetting={this.state.isResetting}
         />
         <Input

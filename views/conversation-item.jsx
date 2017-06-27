@@ -1,5 +1,9 @@
 import React from 'react';
 import { ButtonsGroup, Icon, Colors } from 'watson-react-components';
+import CheckboxesGroup from './checkboxes-group.jsx';
+import ExpansionPanel from './expansion-panel.jsx';
+
+const CUSTOMER_TONES = ['sad', 'frustrated', 'satisfied', 'excited', 'polite', 'impolite', 'sympathetic'];
 
 const ConversationItem = React.createClass({
   displayName: 'ConversationItem',
@@ -9,6 +13,7 @@ const ConversationItem = React.createClass({
     utterance: React.PropTypes.object.isRequired,
     utterance_id: React.PropTypes.number.isRequired,
     onVote: React.PropTypes.func.isRequired,
+    onRecordOtherTone: React.PropTypes.func.isRequired,
     isResetting: React.PropTypes.bool.isRequired,
   },
 
@@ -17,12 +22,29 @@ const ConversationItem = React.createClass({
       utterance: '',
       utterance_id: '',
       onVote(curInput) { console.log('onVote '.concat(curInput)); },
+      onRecordOtherTone(curInput) { console.log('onRecordOtherTone '.concat(curInput)); },
       isResetting: false,
     };
   },
 
+  getInitialState() {
+    return {
+      showPanel: false,
+      className: 'checkbox_group_container',
+      utteranceVotes: {},
+    };
+  },
+
+  getMissingTones(tones) {
+    const utteranceTones = tones.map(t => t.tone);
+    const missingTones = CUSTOMER_TONES.filter(x => utteranceTones.indexOf(x) < 0);
+    missingTones.push('neutral');
+    return (missingTones);
+  },
+
   isFirstToneNegative(tones) {
     const firstTone = tones[0];
+    this.getMissingTones(tones);
     return (
       tones.length !== 0 &&
       (firstTone.tone === 'sad' ||
@@ -32,8 +54,22 @@ const ConversationItem = React.createClass({
     );
   },
 
+  calculateUtteranceCummulativeVote() {
+    const voteSum = Object.values(this.state.utteranceVotes).reduce((a, b) => parseInt(a, 10) + parseInt(b, 10));
+    const numberOfVotes = Object.keys(this.state.utteranceVotes).length;
+    return (voteSum < numberOfVotes);
+  },
+
   castVote(e, tone) {
     const source = this.props.utterance.source;
+    const updatedUtteranceVotes = this.state.utteranceVotes;
+    updatedUtteranceVotes[tone] = e.target.value;
+
+    this.setState({ utteranceVotes: updatedUtteranceVotes });
+    this.setState({
+      showPanel: this.calculateUtteranceCummulativeVote(),
+    });
+
     const voteData = {
       statement: this.props.utterance.statement.text,
       user_feedback: {
@@ -42,16 +78,24 @@ const ConversationItem = React.createClass({
       },
       tone_analyzer_payload: this.props.utterance.tone_analyzer_payload,
     };
-    console.log('voted: '.concat(JSON.stringify(voteData)));
     this.props.onVote.call(this, voteData, source);
+  },
+
+  recordOtherTone(e, otherTone) {
+    const otherToneData = {
+      statement: this.props.utterance.statement.text,
+      user_feedback: {
+        otherTone,
+      },
+      tone_analyzer_payload: this.props.utterance.tone_analyzer_payload,
+    };
+    this.props.onRecordOtherTone.call(this, otherToneData);
   },
 
   render() {
     const user = this.props.utterance.user;
     const statement = this.props.utterance.statement;
     const tones = this.props.utterance.tones;
-
-    console.log('conversationitem isResetting: '.concat(this.props.isResetting));
 
     return (
       <div>
@@ -118,58 +162,19 @@ const ConversationItem = React.createClass({
                   }
                 </div>
               ))}
-            <div className="other_tones">
-              <a className="base--a jumbotron--nav-link" href="#test">What other tones...?</a>
-            </div>
           </div>
         </div>
-        <div className="speaker hidden">
-          <span className="description"> What other tones do you think are in this staement?</span>
-          <input
-            className="base--checkbox"
-            type="checkbox"
-            id="cb1" name="cb"
-            value="some cb"
+        <ExpansionPanel
+          isOpen={this.state.showPanel}
+          className={this.state.className}
+        >
+          <span className="description"> What other tones do you think are in this statement?</span>
+          <CheckboxesGroup
+            checkboxGroupId={this.props.utterance_id.toString()}
+            checkboxValues={this.getMissingTones(tones)}
+            onCheckboxSelection={this.recordOtherTone}
           />
-          <label
-            className="base--inline-label"
-            htmlFor="cb1"
-          >Option 1
-          </label>
-          <input
-            className="base--checkbox"
-            type="checkbox"
-            id="cb2" name="cb"
-            value="some cb"
-          />
-          <label
-            className="base--inline-label"
-            htmlFor="cb2"
-          >Option 2
-          </label>
-          <input
-            className="base--checkbox"
-            type="checkbox"
-            id="cb3" name="cb"
-            value="some cb"
-          />
-          <label
-            className="base--inline-label"
-            htmlFor="cb3"
-          >Option 3
-          </label>
-          <input
-            className="base--checkbox"
-            type="checkbox"
-            id="cb4" name="cb"
-            value="some cb"
-          />
-          <label
-            className="base--inline-label"
-            htmlFor="cb4"
-          >Option 4
-          </label>
-        </div>
+        </ExpansionPanel>
       </div>
     );
   },

@@ -8,6 +8,7 @@ const Output = React.createClass({
   propTypes: {
     conversation: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     onVote: React.PropTypes.func.isRequired,
+    onRecordOtherTone: React.PropTypes.func.isRequired,
     isResetting: React.PropTypes.bool.isRequired,
   },
 
@@ -16,6 +17,7 @@ const Output = React.createClass({
       //eslint-disable-next-line
       conversation: null,
       onVote(curInput) { console.log('onVote '.concat(curInput)); },
+      onRecordOtherTone(curInput) { console.log('onRecordOtherTone '.concat(curInput)); },
       isResetting: false,
     };
   },
@@ -38,6 +40,7 @@ const Output = React.createClass({
                 utterance={utterance}
                 utterance_id={i}
                 onVote={this.props.onVote}
+                onRecordOtherTone={this.props.onRecordOtherTone}
                 isResetting={this.props.isResetting}
               />,
           )

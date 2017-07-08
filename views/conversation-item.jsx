@@ -81,11 +81,12 @@ const ConversationItem = React.createClass({
     this.props.onVote.call(this, voteData, source);
   },
 
-  recordOtherTone(e, otherTone) {
+  recordOtherTone(e) {
     const otherToneData = {
       statement: this.props.utterance.statement.text,
       user_feedback: {
-        otherTone,
+        otherTone: e.target.value,
+        vote: e.target.checked,
       },
       tone_analyzer_payload: this.props.utterance.tone_analyzer_payload,
     };
@@ -116,21 +117,21 @@ const ConversationItem = React.createClass({
           <div className="score_container">
             <div className="agree_container"><span className="agree_link">Do you agree?</span></div>
             { tones.length === 0 ?
-              <div className="tone_results" key={'None'}>
-                <div className="tone_text">{ 'None' }</div>
+              <div className="tone_results" key={'none'}>
+                <div className="tone_text">{ 'none' }</div>
                 { this.props.isResetting ?
                   null :
                   <ButtonsGroup
                     type="radio"
                     name={'utterance'.concat('-', this.props.utterance_id)}
-                    onClick={e => this.castVote(e, 'None')}
+                    onClick={e => this.castVote(e, 'none')}
                     buttons={[{
                       value: 1,
-                      id: 'utterance'.concat('-', this.props.utterance_id, '-None-true'),
+                      id: 'utterance'.concat('-', this.props.utterance_id, '-none-true'),
                       text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
                     }, {
                       value: 0,
-                      id: 'utterance'.concat('-', this.props.utterance_id, '-None-false'),
+                      id: 'utterance'.concat('-', this.props.utterance_id, '-none-false'),
                       text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
                     }]}
                   />

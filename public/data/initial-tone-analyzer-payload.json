@@ -1,0 +1,12 @@
+{
+  "utterances": [
+      {"text": "My charger isn’t working."},
+      {"text": "Thanks for reaching out. Can you give me some more detail about the issue?"},
+      {"text": "I put my charger in my phone last night to charge and it isn't working. Which is ridiculous, it's a new charger, I bought it yesterday."},
+      {"text": "I’m sorry you’re having issues with charging. What kind of charger do you have?"},
+      {"text": "I’m using the charger that came with it."},
+      {"text": "Okay, fantastic. Could you now please plug the charger in for me, and then hold the power button down for about 10 seconds. After that, we should have you running :)."},
+      {"text": "Wow! It’s working. Thank you for the tip."},
+      {"text": "Great! Do you need any more help today?"}
+  ]
+}

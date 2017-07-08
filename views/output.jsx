@@ -23,7 +23,6 @@ const Output = React.createClass({
   },
 
   render() {
-    console.log('output resetting: '.concat(this.props.isResetting));
     return (
       <div className="conversation">
         <div className="conversation_header">
@@ -36,7 +35,7 @@ const Output = React.createClass({
           {
             this.props.conversation.map((utterance, i) =>
               <ConversationItem
-                key={utterance.statement.text}
+                key={'utterance'.concat('-', i)}
                 utterance={utterance}
                 utterance_id={i}
                 onVote={this.props.onVote}

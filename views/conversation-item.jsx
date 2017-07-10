@@ -1,7 +1,7 @@
 import React from 'react';
+import classNames from 'classnames';
 import { ButtonsGroup, Icon, Colors } from 'watson-react-components';
 import CheckboxesGroup from './checkboxes-group.jsx';
-import ExpansionPanel from './expansion-panel.jsx';
 
 const CUSTOMER_TONES = ['sad', 'frustrated', 'satisfied', 'excited', 'polite', 'impolite', 'sympathetic'];
 
@@ -15,7 +15,6 @@ const ConversationItem = React.createClass({
     onVote: React.PropTypes.func.isRequired,
     onRecordOtherTone: React.PropTypes.func.isRequired,
     isResetting: React.PropTypes.bool.isRequired,
-    showPanel: React.PropTypes.bool.isRequired,
   },
 
   getDefaultProps() {
@@ -25,13 +24,11 @@ const ConversationItem = React.createClass({
       onVote(curInput) { console.log('onVote '.concat(curInput)); },
       onRecordOtherTone(curInput) { console.log('onRecordOtherTone '.concat(curInput)); },
       isResetting: false,
-      showPanel: false,
     };
   },
 
   getInitialState() {
     return {
-      // showPanel: false,
       className: 'checkbox_group_container',
       utteranceVotes: {},
     };
@@ -64,8 +61,6 @@ const ConversationItem = React.createClass({
     }
     const voteSum = Object.values(this.props.utterance.utterance_votes).reduce((a, b) => parseInt(a, 10) + parseInt(b, 10));
     const numberOfVotes = Object.keys(this.props.utterance.utterance_votes).length;
-    // a thumbsdown has a 0 value; if there are any thumbsdown in the utterance_votes object, the sum of the votes will be
-    // less than the length of the utterances object
     return (voteSum < numberOfVotes);
   },
 
@@ -157,15 +152,13 @@ const ConversationItem = React.createClass({
               ))}
           </div>
         </div>
-        { // ExpansionPanel should only be shown when isResetting is false and hasThumbsDown() if true
+        {
           this.hasThumbsDown() && !(this.props.isResetting) ?
           (
-            <ExpansionPanel
-              // isOpen={this.state.showPanel}
-              // isOpen={this.props.showPanel}
-              // isOpen={this.hasThumbsDown()}
-              className={this.state.className}
-              isResetting={this.props.isResetting}
+            <div
+              className={classNames(
+              'checkbox_group_container', 'checkbox_group_container_show')
+                }
             >
               <span className="description"> What other tones do you think are in this statement?</span>
               <CheckboxesGroup
@@ -174,10 +167,10 @@ const ConversationItem = React.createClass({
                 onCheckboxSelection={this.recordOtherTone}
                 isResetting={this.props.isResetting}
               />
-            </ExpansionPanel>
-          ) :
-            null
-          }
+            </div>
+            ) :
+            <div className="checkbox_group_container" />
+        }
       </div>
     );
   },

@@ -15,6 +15,7 @@ const ConversationItem = React.createClass({
     onVote: React.PropTypes.func.isRequired,
     onRecordOtherTone: React.PropTypes.func.isRequired,
     isResetting: React.PropTypes.bool.isRequired,
+    showPanel: React.PropTypes.bool.isRequired,
   },
 
   getDefaultProps() {
@@ -24,12 +25,13 @@ const ConversationItem = React.createClass({
       onVote(curInput) { console.log('onVote '.concat(curInput)); },
       onRecordOtherTone(curInput) { console.log('onRecordOtherTone '.concat(curInput)); },
       isResetting: false,
+      showPanel: false,
     };
   },
 
   getInitialState() {
     return {
-      showPanel: false,
+      // showPanel: false,
       className: 'checkbox_group_container',
       utteranceVotes: {},
     };
@@ -54,31 +56,21 @@ const ConversationItem = React.createClass({
     );
   },
 
-  calculateUtteranceCummulativeVote() {
-    const voteSum = Object.values(this.state.utteranceVotes).reduce((a, b) => parseInt(a, 10) + parseInt(b, 10));
-    const numberOfVotes = Object.keys(this.state.utteranceVotes).length;
+  // A boolean function that is true if the user has voted thumbsdown (value of 0)
+  // on ANY of the tones provided for an utterance by the Tone Analyzer tone_chat endpoint
+  hasThumbsDown() {
+    if (Object.keys(this.props.utterance.utterance_votes).length === 0) {
+      return false;
+    }
+    const voteSum = Object.values(this.props.utterance.utterance_votes).reduce((a, b) => parseInt(a, 10) + parseInt(b, 10));
+    const numberOfVotes = Object.keys(this.props.utterance.utterance_votes).length;
+    // a thumbsdown has a 0 value; if there are any thumbsdown in the utterance_votes object, the sum of the votes will be
+    // less than the length of the utterances object
     return (voteSum < numberOfVotes);
   },
 
   castVote(e, tone) {
-    const source = this.props.utterance.source;
-    const updatedUtteranceVotes = this.state.utteranceVotes;
-    updatedUtteranceVotes[tone] = e.target.value;
-
-    this.setState({ utteranceVotes: updatedUtteranceVotes });
-    this.setState({
-      showPanel: this.calculateUtteranceCummulativeVote(),
-    });
-
-    const voteData = {
-      statement: this.props.utterance.statement.text,
-      user_feedback: {
-        tone,
-        vote: e.target.value,
-      },
-      tone_analyzer_payload: this.props.utterance.tone_analyzer_payload,
-    };
-    this.props.onVote.call(this, voteData, source);
+    this.props.onVote.call(this, this.props.utterance, tone, e.target.value);
   },
 
   recordOtherTone(e) {
@@ -145,37 +137,47 @@ const ConversationItem = React.createClass({
                   >{t.tone}
                   </div>
                   { this.props.isResetting ?
-                    null :
-                    <ButtonsGroup
-                      type="radio"
-                      name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
-                      onClick={e => this.castVote(e, t.tone)}
-                      buttons={[{
-                        value: 1,
-                        id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
-                        text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
-                      }, {
-                        value: 0,
-                        id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
-                        text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
-                      }]}
-                    />
+                      null :
+                      <ButtonsGroup
+                        type="radio"
+                        name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
+                        onClick={e => this.castVote(e, t.tone)}
+                        buttons={[{
+                          value: 1,
+                          id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
+                          text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
+                        }, {
+                          value: 0,
+                          id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
+                          text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
+                        }]}
+                      />
                   }
                 </div>
               ))}
           </div>
         </div>
-        <ExpansionPanel
-          isOpen={this.state.showPanel}
-          className={this.state.className}
-        >
-          <span className="description"> What other tones do you think are in this statement?</span>
-          <CheckboxesGroup
-            checkboxGroupId={this.props.utterance_id.toString()}
-            checkboxValues={this.getMissingTones(tones)}
-            onCheckboxSelection={this.recordOtherTone}
-          />
-        </ExpansionPanel>
+        { // ExpansionPanel should only be shown when isResetting is false and hasThumbsDown() if true
+          this.hasThumbsDown() && !(this.props.isResetting) ?
+          (
+            <ExpansionPanel
+              // isOpen={this.state.showPanel}
+              // isOpen={this.props.showPanel}
+              // isOpen={this.hasThumbsDown()}
+              className={this.state.className}
+              isResetting={this.props.isResetting}
+            >
+              <span className="description"> What other tones do you think are in this statement?</span>
+              <CheckboxesGroup
+                checkboxGroupId={this.props.utterance_id.toString()}
+                checkboxValues={this.getMissingTones(tones)}
+                onCheckboxSelection={this.recordOtherTone}
+                isResetting={this.props.isResetting}
+              />
+            </ExpansionPanel>
+          ) :
+            null
+          }
       </div>
     );
   },

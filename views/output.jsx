@@ -24,14 +24,14 @@ const Output = React.createClass({
 
   render() {
     return (
-      <div className="conversation">
+      <div className="conversation_container">
         <div className="conversation_header">
           <div className="statement_header">Conversation</div>
           <div className="tone_header"> Tone Analysis</div>
         </div>
 
         {/* Generate a div for each utterance in the conversation object */}
-        <div>
+        <div className="conversation">
           {
             this.props.conversation.map((utterance, i) =>
               <ConversationItem

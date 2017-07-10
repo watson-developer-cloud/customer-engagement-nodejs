@@ -7,23 +7,27 @@ const CheckboxesGroup = React.createClass({
     checkboxGroupId: React.PropTypes.string,
     checkboxValues: React.PropTypes.arrayOf(React.PropTypes.string),
     onCheckboxSelection: React.PropTypes.func.isRequired,
+    isResetting: React.PropTypes.bool.isRequired,
   },
 
   getDefaultProps() {
     return {
       checkboxValues: [],
-      checkboxGroupId: '0', // ?
+      checkboxGroupId: '0',
+      isResetting: false,
       onCheckboxSelection(curInput) { console.log('onCheckboxSelection '.concat(curInput)); },
     };
   },
 
   render() {
     return (
-      <div>
+      this.props.isResetting ?
+        null :
+      (<div className="checkbox_container">
         {
         this.props.checkboxValues.map(v => (
           <div
-            className="checkbox_container"
+            className="checkbox"
             key={`cb-${v}-${this.props.checkboxGroupId}`}
           >
             <input
@@ -33,7 +37,7 @@ const CheckboxesGroup = React.createClass({
               id={`cb-${v}-${this.props.checkboxGroupId}`}
               name={`${v}`}
               value={`${v}`}
-              onChange={e => this.props.onCheckboxSelection(e, `${v}`)}
+              onChange={e => this.props.onCheckboxSelection(e)}
             />
             <label
               // className="base--inline-label"
@@ -44,7 +48,7 @@ const CheckboxesGroup = React.createClass({
           </div>
         ))
       }
-      </div>
+      </div>)
     );
   },
 });

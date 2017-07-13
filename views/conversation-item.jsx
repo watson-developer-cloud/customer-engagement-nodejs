@@ -85,6 +85,8 @@ const ConversationItem = React.createClass({
     const statement = this.props.utterance.statement;
     const tones = this.props.utterance.tones;
 
+    console.log('conversationitem isResetting: '.concat(this.props.isResetting));
+
     return (
       <div>
         <div className={user.type === 'customer' ? 'speaker consumer' : 'speaker'}>

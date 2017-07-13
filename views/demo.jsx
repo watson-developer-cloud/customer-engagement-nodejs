@@ -29,6 +29,7 @@ const Demo = React.createClass({
   * prior to rendering.
   */
   getInitialState() {
+    console.log('getInitialState called');
     const initialLastUtterance = initialConversation.utterances[initialConversation.utterances.length - 1];
     return {
       conversation: JSON.parse(initialConversationString),
@@ -284,6 +285,9 @@ const Demo = React.createClass({
         error,
       });
     });
+    setTimeout(() => {
+      this.setState({ isResetting: false });
+    }, 1);
   },
 
   render() {

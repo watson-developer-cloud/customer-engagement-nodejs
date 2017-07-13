@@ -202,6 +202,9 @@
   margin-top: 0;
   width: 25%;
 }
+.other_tones {
+  font-size: 0.75em;
+}
 
 .other_tones {
   font-size: 0.75em;
@@ -236,7 +239,8 @@
   background: transparent;
 }
 
-.base--radio:checked+.buttons-group--button .icon {
+
+.base--radio:checked + .buttons-group--button .icon {
   fill: rgb(152, 85, 212);
 }
 

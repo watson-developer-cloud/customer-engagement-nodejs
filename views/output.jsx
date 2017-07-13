@@ -8,6 +8,7 @@ const Output = React.createClass({
   propTypes: {
     conversation: React.PropTypes.arrayOf(React.PropTypes.object).isRequired,
     onVote: React.PropTypes.func.isRequired,
+    onRecordOtherTone: React.PropTypes.func.isRequired,
     isResetting: React.PropTypes.bool.isRequired,
   },
 
@@ -16,28 +17,29 @@ const Output = React.createClass({
       //eslint-disable-next-line
       conversation: null,
       onVote(curInput) { console.log('onVote '.concat(curInput)); },
+      onRecordOtherTone(curInput) { console.log('onRecordOtherTone '.concat(curInput)); },
       isResetting: false,
     };
   },
 
   render() {
-    console.log('output resetting: '.concat(this.props.isResetting));
     return (
-      <div className="conversation">
+      <div className="conversation_container">
         <div className="conversation_header">
           <div className="statement_header">Conversation</div>
           <div className="tone_header"> Tone Analysis</div>
         </div>
 
         {/* Generate a div for each utterance in the conversation object */}
-        <div>
+        <div className="conversation">
           {
             this.props.conversation.map((utterance, i) =>
               <ConversationItem
-                key={utterance.statement.text}
+                key={'utterance'.concat('-', i)}
                 utterance={utterance}
                 utterance_id={i}
                 onVote={this.props.onVote}
+                onRecordOtherTone={this.props.onRecordOtherTone}
                 isResetting={this.props.isResetting}
               />,
           )

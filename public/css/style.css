@@ -6,9 +6,68 @@
   float: left;
 }
 
+.loading_container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100px;
+  margin-top: 0;
+}
+
+.checkbox_group_container {
+  font-size: .875em;
+  max-height: 0;
+  visibility: hidden;
+  transition: 0.3s;
+  z-index: 9000;
+  overflow: auto;
+  margin-top: 0;
+  padding: 0rem 1rem;
+  width: 766px;
+}
+
+.checkbox_group_container_show {
+  display: inline-block;
+  float: left;
+  visibility: visible;
+  opacity: 1;
+  max-height: 30rem;
+  overflow: auto;
+  transition: 0.3s;
+  margin-top: 1em;
+  margin-bottom: 1rem;
+  overflow: hidden;
+}
+
+.checkbox_container {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+.checkbox {
+  margin: 0px 20px 0px 0px;
+  border-radius: 3px;
+  float: left;
+  overflow: hidden;
+}
+
+.checkbox_input {
+  margin-right: 0px;
+}
+
+.checkbox_label {
+  margin-right: 15px;
+  margin-top: 0px;
+  cursor: pointer;
+  display: inline-block;
+}
+
 .conversation_frame {
   width: 700px;
-  margin:auto;
+  margin: auto;
   padding: 10px;
   height: auto;
   min-height: 90px;
@@ -19,7 +78,7 @@
   margin-bottom: 1em;
 }
 
-.conversation {
+.conversation_container {
   width: 100%;
   border: 1px solid #c7c7c7;
   border-top-left-radius: 10px;
@@ -31,15 +90,14 @@
 }
 
 .speaker {
-  margin-top: 1em;
-  margin-bottom: 1em;
   overflow: auto;
   padding: 20px;
   width: 766px;
 }
+
 .conversation_header {
   width: 100%;
-  padding-left:20px;
+  padding-left: 20px;
   padding-top: 10px;
   font-size: 1.25em;
 }
@@ -53,15 +111,19 @@
   float: left;
   margin-top: 0;
 }
+
 .consumer {
   background-color: #F5F3FA;
 }
 
 .avatar {
-  float:left;
+  float: left;
   margin-right: 1em;
   width: 70px;
+  margin-top: 0;
+  margin-bottom: 0;
 }
+
 .customer_avatar {
   background-image: url("/images/customer.png");
   height: 70px;
@@ -86,13 +148,16 @@
   margin-top: 0;
   min-height: 70px;
 }
+
 .speaker_name {
   font-weight: bold;
   font-size: .875em;
 }
+
 .speaker_handle {
   font-size: .875em;
 }
+
 .time_stamp {
   text-transform: uppercase;
   color: #777677;
@@ -129,6 +194,7 @@
   width: auto;
   flex-grow: 2;
 }
+
 .tone_score {
   font-weight: bold;
   float: left;
@@ -136,6 +202,10 @@
   margin-top: 0;
   width: 25%;
 }
+.other_tones {
+  font-size: 0.75em;
+}
+
 .other_tones {
   font-size: 0.75em;
 }
@@ -169,6 +239,7 @@
   background: transparent;
 }
 
+
 .base--radio:checked + .buttons-group--button .icon {
   fill: rgb(152, 85, 212);
 }
@@ -190,14 +261,16 @@
   border: 1px solid #c7c7c7;
   margin-top: 0;
 }
+
 .input_wrapper {
   margin-left: 20px;
   margin-right: 20px;
   margin-top: 20px;
   margin-bottom: 20px;
 }
+
 textarea {
-  height:70px;
+  height: 70px;
   border: 1px solid #aeaeae;
   resize: none;
 }
@@ -213,7 +286,7 @@ textarea {
 }
 
 .input_avatar {
-  float:left;
+  float: left;
   width: 35px;
   height: 35px;
   border: 1px solid #c7c7c7;
@@ -221,11 +294,13 @@ textarea {
   border-radius: 5px;
   margin-right: 1em;
 }
+
 .submit_button {
   float: right;
   margin-right: 15px;
   margin-top: 20px;
 }
+
 .reset {
   float: left;
 }
@@ -234,6 +309,7 @@ textarea {
   float: right;
   margin-top: 0;
 }
+
 .conversation_footer {
   height: auto;
   margin-bottom: 1em;
@@ -279,6 +355,7 @@ textarea {
   margin-right: 0;
   margin-bottom: 0.5rem;
 }
+
 .agree_link {
   font-size: .75em;
 }
@@ -286,6 +363,7 @@ textarea {
 .base--a {
   cursor: pointer;
 }
+
 .service-error {
   text-align: center;
 }
@@ -299,5 +377,6 @@ textarea {
 
 .service-error--message {
   color: #d74108;
+  ;
   text-align: center;
 }

@@ -35,7 +35,8 @@
               "tone_name": "frustrated"
           }]
         }]
-      }
+      },
+      "utterance_votes": {}
     },
     {
       "source": "system",
@@ -64,7 +65,8 @@
               "tone_name": "polite"
           }]
         }]
-      }
+      },
+      "utterance_votes": {}
     },
     {
       "source": "system",
@@ -101,7 +103,8 @@
               "tone_name": "sad"
           }]
         }]
-      }
+      },
+      "utterance_votes": {}
     },
     {
       "source": "system",
@@ -138,7 +141,8 @@
               "tone_name": "sympathetic"
           }]
         }]
-      }
+      },
+      "utterance_votes": {}
     },
     {
       "source": "system",
@@ -158,7 +162,8 @@
           "utterance_text": "I’m using the charger that came with it.",
           "tones": []
         }]
-      }
+      },
+      "utterance_votes": {}
     },
     {
       "source": "system",
@@ -187,8 +192,8 @@
               "tone_name": "polite"
           }]
         }]
-      }
-
+      },
+      "utterance_votes": {}
     },
     {
       "source": "system",
@@ -233,7 +238,8 @@
               "tone_name": "satisfied"
           }]
         }]
-      }
+      },
+      "utterance_votes": {}
     },
     {
       "source": "system",
@@ -278,7 +284,8 @@
               "tone_name": "satisfied"
           }]
         }]
-      }
+      },
+      "utterance_votes": {}
     }
   ]
 }

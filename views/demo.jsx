@@ -4,12 +4,19 @@ import { JsonLinkInline, Icon } from 'watson-react-components';
 import Output from './output.jsx';
 import Input from './input.jsx';
 import ResetConversationLink from './reset-conversation-link.jsx';
+import LanguageSelector from './language-selector.jsx';
 
 // load initial conversation state, a json object
 // hack to get around deep clone of initial conversation for reseting conversation
+// English
 const initialConversationString = JSON.stringify(require('../public/data/initial-conversation'));
 const initialConversation = require('../public/data/initial-conversation');
 const systemConversation = require('../public/data/initial-tone-analyzer-payload');
+
+// French
+const initialConversationFrenchString = JSON.stringify(require('../public/data/initial-conversation-fr'));
+const initialConversationFrench = require('../public/data/initial-conversation-fr');
+const systemConversationFrench = require('../public/data/initial-tone-analyzer-payload-fr');
 
 const CUSTOMER_NAME = 'Fred';
 const CUSTOMER_HANDLE = '@Fred_theConsumer';
@@ -31,6 +38,8 @@ const Demo = React.createClass({
   getInitialState() {
     console.log('getInitialState called');
     const initialLastUtterance = initialConversation.utterances[initialConversation.utterances.length - 1];
+    // TODO: Change value of initialLastUtterance based on language button pressed
+
     return {
       conversation: JSON.parse(initialConversationString),
       error: null,
@@ -298,6 +307,9 @@ const Demo = React.createClass({
             <Icon type="loader" size="large" />
           </div>) :
           (<div>
+            <LanguageSelector
+              lang="en"
+            />
             <Output
               conversation={this.state.conversation.utterances}
               onVote={this.onVote}

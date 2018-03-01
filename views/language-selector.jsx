@@ -5,39 +5,20 @@ const LanguageSelector = React.createClass({
 
   displayName: 'LanguageSelector',
 
-  getInitialState() {
-    return {
-      lang: 'en',
-    };
-  },
-
-  updateLanguage(e) {
-    if (e.target.id.toString() === 'en') {
-      this.setState({
-        lang: 'en',
-      });
-    } else {
-      this.setState({
-        lang: 'fr',
-      });
-    }
+  propTypes: {
+    onLanguageSelection: React.PropTypes.func.isRequired,
   },
 
   render() {
     return (
       <div className="language_selection_container">
         <div className="select_language_header">Select Language: </div>
-
-        {/* Generate a div for each utterance in the conversation object */}
         <div className="language_options">
           {
             <ButtonsGroup
               type="radio"
               name="radio-buttons"
-              // eslint-disable-next-line no-console
-              onClick={e => this.updateLanguage(e)}
-              // eslint-disable-next-line no-console
-              onChange={e => console.log('Language changed to ', e.target.value)}
+              onClick={e => this.props.onLanguageSelection(e.target.id)}
               buttons={[{
                 value: 1,
                 id: 'en',

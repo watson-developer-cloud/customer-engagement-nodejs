@@ -47,6 +47,7 @@ const Demo = React.createClass({
       newUtteranceAvatarType: initialLastUtterance.user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
       showJson: false,
       isResetting: false,
+      language: 'en',
       loading: false,
       initializing: true,
     };
@@ -167,6 +168,12 @@ const Demo = React.createClass({
       this.setState({
         error,
       });
+    });
+  },
+
+  updateLanguage(language) {
+    this.setState({
+      language,
     });
   },
 
@@ -308,8 +315,9 @@ const Demo = React.createClass({
           </div>) :
           (<div>
             <LanguageSelector
-              lang="en"
+              onLanguageSelection={this.updateLanguage}
             />
+            <div>selected language is {this.state.language}</div>
             <Output
               conversation={this.state.conversation.utterances}
               onVote={this.onVote}

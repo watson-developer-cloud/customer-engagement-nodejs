@@ -110,20 +110,22 @@ const ConversationItem = React.createClass({
                 <div className="tone_text">{ 'none' }</div>
                 { this.props.isResetting ?
                   null :
-                  <ButtonsGroup
-                    type="radio"
-                    name={'utterance'.concat('-', this.props.utterance_id)}
-                    onClick={e => this.castVote(e, 'none')}
-                    buttons={[{
-                      value: 1,
-                      id: 'utterance'.concat('-', this.props.utterance_id, '-none-true'),
-                      text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
-                    }, {
-                      value: 0,
-                      id: 'utterance'.concat('-', this.props.utterance_id, '-none-false'),
-                      text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
-                    }]}
-                  />
+                  <div className="feedback">
+                    <ButtonsGroup
+                      type="radio"
+                      name={'utterance'.concat('-', this.props.utterance_id)}
+                      onClick={e => this.castVote(e, 'none')}
+                      buttons={[{
+                        value: 1,
+                        id: 'utterance'.concat('-', this.props.utterance_id, '-none-true'),
+                        text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
+                      }, {
+                        value: 0,
+                        id: 'utterance'.concat('-', this.props.utterance_id, '-none-false'),
+                        text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
+                      }]}
+                    />
+                  </div>
                 }
               </div>
               :
@@ -135,20 +137,22 @@ const ConversationItem = React.createClass({
                   </div>
                   { this.props.isResetting ?
                       null :
-                      <ButtonsGroup
-                        type="radio"
-                        name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
-                        onClick={e => this.castVote(e, t.tone)}
-                        buttons={[{
-                          value: 1,
-                          id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
-                          text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
-                        }, {
-                          value: 0,
-                          id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
-                          text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
-                        }]}
-                      />
+                      <div className="feedback">
+                        <ButtonsGroup
+                          type="radio"
+                          name={'utterance'.concat('-', this.props.utterance_id, '-', i)}
+                          onClick={e => this.castVote(e, t.tone)}
+                          buttons={[{
+                            value: 1,
+                            id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-true'),
+                            text: <Icon className={'thumb'} type={'thumbs-up'} fill={Colors.gray_30} />,
+                          }, {
+                            value: 0,
+                            id: 'utterance'.concat('-', this.props.utterance_id, '-', i, '-', t.tone, '-false'),
+                            text: <Icon className={'thumb'} type={'thumbs-down'} fill={Colors.gray_30} />,
+                          }]}
+                        />
+                      </div>
                   }
                 </div>
               ))}

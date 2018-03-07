@@ -58,7 +58,9 @@ const Demo = React.createClass({
     console.log('componentDidMount called');
     fetch('/api/tone_chat', {
       method: 'POST',
-      headers: { 'content-type': 'application/json', 'Content-Language': this.state.language },
+      headers: {
+        'content-type': 'application/json',
+      },
       body: JSON.stringify(this.state.systemConversation),
     }).then(this.handleErrors).then((response) => {
       response.json().then((tone) => {
@@ -106,7 +108,9 @@ const Demo = React.createClass({
     } else {
       fetch('/api/tone_chat', {
         method: 'POST',
-        headers: { 'content-type': 'application/json', 'Content-Language': this.state.language },
+        headers: {
+          'content-type': 'application/json',
+        },
         body: JSON.stringify({
           utterances: [
             { text: utterance, user: 'customer' },
@@ -151,7 +155,9 @@ const Demo = React.createClass({
     if (utterance.source === 'user') {
       fetch('/log_perceived_accuracy', {
         method: 'POST',
-        headers: { 'content-type': 'application/json', 'Content-Language': this.state.language },
+        headers: {
+          'content-type': 'application/json',
+        },
         body: JSON.stringify(voteData),
       }).then(this.handleErrors).then((response) => {
         console.log('watson tone accuracy logged: '.concat(response));
@@ -167,7 +173,9 @@ const Demo = React.createClass({
     console.log('onRecordOtherTone called');
     fetch('/log_alternative_customer_tones', {
       method: 'POST',
-      headers: { 'content-type': 'application/json', 'Content-Language': this.state.language },
+      headers: {
+        'content-type': 'application/json',
+      },
       body: JSON.stringify(newToneData),
     }).then(this.handleErrors).then((response) => {
       console.log('suggested tone logged: '.concat(response));
@@ -179,28 +187,52 @@ const Demo = React.createClass({
   },
 
   updateLanguage(language) {
-    console.log('updateLanguage called', this.state.language);
+    let updatedSystemConversation = systemConversation;
+    let updatedConversation = initialConversationString;
+    let updatedInitialConversation = initialConversation;
+
+    console.log('updateLanguage called', language);
     // Do nothing if same language is selected
     if (language === this.state.language) {
       return null;
     }
-    if (language === 'en') {
-      this.setState({
-        conversation: JSON.parse(initialConversationString),
-        newUtterancePlaceholder: JSON.parse(initialConversationString).agent.handle,
-        newUtteranceAvatarType: initialConversation.utterances[initialConversation.utterances.length - 1].user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
-        systemConversation,
-        language,
-      });
-    } else {
-      this.setState({
-        conversation: JSON.parse(initialConversationFrenchString),
-        newUtterancePlaceholder: JSON.parse(initialConversationFrenchString).agent.handle,
-        newUtteranceAvatarType: initialConversationFrench.utterances[initialConversationFrench.utterances.length - 1].user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
-        systemConversation: systemConversationFrench,
-        language,
-      });
+
+    if (language === 'fr') {
+      updatedSystemConversation = systemConversationFrench;
+      updatedConversation = initialConversationFrenchString;
+      updatedInitialConversation = initialConversationFrench;
+      console.log('CHECK', updatedSystemConversation.utterances);
     }
+
+    this.setState({
+      initializing: false,
+      conversation: JSON.parse(updatedConversation),
+      newUtterancePlaceholder: JSON.parse(updatedConversation).agent.handle,
+      newUtteranceAvatarType: updatedInitialConversation.utterances[updatedInitialConversation.utterances.length - 1].user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
+      systemConversation: updatedSystemConversation,
+      language,
+    });
+
+    updatedSystemConversation.language = language;
+
+    fetch('/api/tone_chat', {
+      method: 'POST',
+      headers: {
+        'content-type': 'application/json',
+      },
+      body: JSON.stringify(updatedSystemConversation),
+    }).then(this.handleErrors).then((response) => {
+      response.json().then((tone) => {
+        this.setState({
+          conversation: this.createConversationJson(tone, 'agent'),
+          initializing: false,
+        });
+      });
+    }).catch((error) => {
+      this.setState({
+        error,
+      });
+    });
   },
 
   handleErrors(response) {
@@ -311,7 +343,9 @@ const Demo = React.createClass({
     console.log('resetConversation called');
     fetch('/api/tone_chat', {
       method: 'POST',
-      headers: { 'content-type': 'application/json', 'Content-Language': this.state.language },
+      headers: {
+        'content-type': 'application/json',
+      },
       body: JSON.stringify(this.state.systemConversation),
     }).then(this.handleErrors).then((response) => {
       response.json().then((tone) => {
@@ -348,12 +382,18 @@ const Demo = React.createClass({
               onLanguageSelection={this.updateLanguage}
             />
             <div>selected language is {this.state.language}</div>
-            <Output
-              conversation={this.state.conversation.utterances}
-              onVote={this.onVote}
-              onRecordOtherTone={this.onRecordOtherTone}
-              isResetting={this.state.isResetting}
-            />
+            { this.state.initializing ?
+              (
+                <div className="loading_container">
+                  <Icon type="loader" size="large" />
+                </div>) :
+                <Output
+                  conversation={this.state.conversation.utterances}
+                  onVote={this.onVote}
+                  onRecordOtherTone={this.onRecordOtherTone}
+                  isResetting={this.state.isResetting}
+                />
+            }
             { this.state.loading ?
               (
                 <div className="loading_container">

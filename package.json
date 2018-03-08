@@ -43,7 +43,7 @@
     "react-prism": "^4.0.0",
     "uglifyify": "^3.0.4",
     "underscore": "^1.8.3",
-    "watson-developer-cloud": "^2.30.0",
+    "watson-developer-cloud": "^3.1.0",
     "watson-react-components": "^0.6.9",
     "watson-ui-components": "^0.6.0",
     "whatwg-fetch": "^2.0.3"

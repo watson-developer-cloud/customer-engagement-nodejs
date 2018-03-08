@@ -55,7 +55,9 @@ const Demo = React.createClass({
   },
 
   componentDidMount() {
-    console.log('componentDidMount called');
+    // Add language parameter to request body
+    this.state.systemConversation.content_language = this.state.language;
+
     fetch('/api/tone_chat', {
       method: 'POST',
       headers: {
@@ -64,6 +66,7 @@ const Demo = React.createClass({
       body: JSON.stringify(this.state.systemConversation),
     }).then(this.handleErrors).then((response) => {
       response.json().then((tone) => {
+        delete this.state.systemConversation.content_language;
         this.setState({
           conversation: this.createConversationJson(tone, 'agent'),
           initializing: false,
@@ -77,21 +80,18 @@ const Demo = React.createClass({
   },
 
   onShowJson() {
-    console.log('onShowJson called');
     this.setState({
       showJson: !this.state.showJson,
     });
   },
 
   onExitJson() {
-    console.log('onExitJson called');
     this.setState({
       showJson: false,
     });
   },
 
   onSubmit(utterance) {
-    console.log('onSubmit called');
     this.setState({
       loading: true,
       error: null,
@@ -115,6 +115,7 @@ const Demo = React.createClass({
           utterances: [
             { text: utterance, user: 'customer' },
           ],
+          content_language: this.state.language,
         }),
       }).then(this.handleErrors).then((response) => {
         response.json().then((tone) => {
@@ -133,7 +134,6 @@ const Demo = React.createClass({
   },
 
   onVote(utterance, tone, vote) {
-    console.log('onVote called');
     const updatedConversation = this.state.conversation;
     const currentUtterance = updatedConversation.utterances.filter(u => u.id === utterance.id);
     const updatedUtteranceVotes = utterance.utterance_votes;
@@ -170,7 +170,6 @@ const Demo = React.createClass({
   },
 
   onRecordOtherTone(newToneData) {
-    console.log('onRecordOtherTone called');
     fetch('/log_alternative_customer_tones', {
       method: 'POST',
       headers: {
@@ -187,33 +186,27 @@ const Demo = React.createClass({
   },
 
   updateLanguage(language) {
-    let updatedSystemConversation = systemConversation;
-    let updatedConversation = initialConversationString;
-    let updatedInitialConversation = initialConversation;
-
-    console.log('updateLanguage called', language);
     // Do nothing if same language is selected
     if (language === this.state.language) {
       return null;
     }
 
+    let updatedSystemConversation = systemConversation;
+    let updatedConversation = initialConversationString;
+    let updatedInitialConversation = initialConversation;
+
     if (language === 'fr') {
       updatedSystemConversation = systemConversationFrench;
       updatedConversation = initialConversationFrenchString;
       updatedInitialConversation = initialConversationFrench;
-      console.log('CHECK', updatedSystemConversation.utterances);
     }
 
     this.setState({
-      initializing: false,
-      conversation: JSON.parse(updatedConversation),
-      newUtterancePlaceholder: JSON.parse(updatedConversation).agent.handle,
-      newUtteranceAvatarType: updatedInitialConversation.utterances[updatedInitialConversation.utterances.length - 1].user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
-      systemConversation: updatedSystemConversation,
       language,
     });
 
-    updatedSystemConversation.language = language;
+    // Add language parameter to request body
+    updatedSystemConversation.content_language = language;
 
     fetch('/api/tone_chat', {
       method: 'POST',
@@ -225,7 +218,9 @@ const Demo = React.createClass({
       response.json().then((tone) => {
         this.setState({
           conversation: this.createConversationJson(tone, 'agent'),
-          initializing: false,
+          newUtterancePlaceholder: JSON.parse(updatedConversation).agent.handle,
+          newUtteranceAvatarType: updatedInitialConversation.utterances[updatedInitialConversation.utterances.length - 1].user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
+          systemConversation: updatedSystemConversation,
         });
       });
     }).catch((error) => {
@@ -244,14 +239,13 @@ const Demo = React.createClass({
 
   /*
     utteranceId: id for the utterance for which the conversation turn is created
-    customerTonePayloadObject: response payload from the Tone Analyzer tone_chat endpoint
+    customerTonePayloadObject: response payload from the Tone Analyzer toneChat endpoint
     speaker: one of two strings - 'agent' or 'customer' indicating who made the statement/utterance
     source: one of two strings - 'system' or 'user'.  This is to distinguish between system provided utterances for the conversation initialization
       and utterances provided by the user through the input text box in the UI.
     timestamp: 'now' or (tonesShortlist.length - i).toString().concat(' min ago') for user-generated timestamps
   */
   createConversationTurn(utteranceId, customerTonePayloadObject, speaker, source, timestamp) {
-    console.log('createConversationTurn called');
     // sort and map analyzer tones to a json object
     const tonesRaw = customerTonePayloadObject.tones;
     tonesRaw.sort((tone1, tone2) =>
@@ -287,7 +281,6 @@ const Demo = React.createClass({
   * front-end UI.
   */
   updateConversation(toneAnalyzerPayload) {
-    console.log('updateConversation called');
     const lastConversationTurn = this.state.conversation.utterances[this.state.conversation.utterances.length - 1];
     const newConversationTurn = this.createConversationTurn(
       lastConversationTurn.id + 1,
@@ -310,7 +303,6 @@ const Demo = React.createClass({
   },
 
   createConversationJson(payload, firstTurnType) {
-    console.log('createConversationJson called');
     let lastConversationTurnSpeaker = firstTurnType;
     const conversationJson = {
       customer: {
@@ -340,7 +332,9 @@ const Demo = React.createClass({
   },
 
   resetConversation() {
-    console.log('resetConversation called');
+    // Add language parameter to request body
+    this.state.systemConversation.content_language = this.state.language;
+
     fetch('/api/tone_chat', {
       method: 'POST',
       headers: {
@@ -349,6 +343,7 @@ const Demo = React.createClass({
       body: JSON.stringify(this.state.systemConversation),
     }).then(this.handleErrors).then((response) => {
       response.json().then((tone) => {
+        delete this.state.systemConversation.content_language;
         this.setState({
           conversation: this.createConversationJson(tone, 'agent'),
           error: null,
@@ -377,23 +372,17 @@ const Demo = React.createClass({
           <div className="loading_container">
             <Icon type="loader" size="large" />
           </div>) :
-          (<div>
+        (
+          <div>
             <LanguageSelector
               onLanguageSelection={this.updateLanguage}
             />
-            <div>selected language is {this.state.language}</div>
-            { this.state.initializing ?
-              (
-                <div className="loading_container">
-                  <Icon type="loader" size="large" />
-                </div>) :
-                <Output
-                  conversation={this.state.conversation.utterances}
-                  onVote={this.onVote}
-                  onRecordOtherTone={this.onRecordOtherTone}
-                  isResetting={this.state.isResetting}
-                />
-            }
+            <Output
+              conversation={this.state.conversation.utterances}
+              onVote={this.onVote}
+              onRecordOtherTone={this.onRecordOtherTone}
+              isResetting={this.state.isResetting}
+            />
             { this.state.loading ?
               (
                 <div className="loading_container">

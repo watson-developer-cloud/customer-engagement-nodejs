@@ -26,7 +26,7 @@ require('./config/express')(app);
 // Instantiate Tone Analyzer service
 const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
 const toneAnalyzer = new ToneAnalyzerV3({
-  version_date: '2016-05-19',
+  version_date: '2017-09-21',
 });
 
 // Endpoint for web app
@@ -36,7 +36,7 @@ app.get('/', (req, res) => {
 
 // Endpoint for Tone Analyzer tone_chat endpoint
 app.post('/api/tone_chat', (req, res, next) => {
-  toneAnalyzer.tone_chat(req.body, (err, tone) => {
+  toneAnalyzer.toneChat(req.body, (err, tone) => {
     if (err) {
       return next(err);
     }

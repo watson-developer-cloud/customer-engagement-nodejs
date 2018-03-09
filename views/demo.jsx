@@ -234,7 +234,7 @@ const Demo = React.createClass({
 
   /*
     utteranceId: id for the utterance for which the conversation turn is created
-    customerTonePayloadObject: response payload from the Tone Analyzer toneChat endpoint
+    customerTonePayloadObject: response payload from the Tone Analyzer tone_chat endpoint
     speaker: one of two strings - 'agent' or 'customer' indicating who made the statement/utterance
     source: one of two strings - 'system' or 'user'.  This is to distinguish between system provided utterances for the conversation initialization
       and utterances provided by the user through the input text box in the UI.

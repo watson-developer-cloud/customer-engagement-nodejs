@@ -7,7 +7,7 @@ function LanguageSelector(props) {
   if (props.currentLanguage === 'en') {
     englishSelected = true;
   }
-  // boo
+
   return (
     <div className="language_selection_container">
       <div className="select_language_header">Select Language: </div>

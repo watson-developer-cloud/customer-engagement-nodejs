@@ -4,19 +4,12 @@ import { JsonLinkInline, Icon } from 'watson-react-components';
 import Output from './output.jsx';
 import Input from './input.jsx';
 import ResetConversationLink from './reset-conversation-link.jsx';
-import LanguageSelector from './language-selector.jsx';
 
 // load initial conversation state, a json object
 // hack to get around deep clone of initial conversation for reseting conversation
-// English
 const initialConversationString = JSON.stringify(require('../public/data/initial-conversation'));
 const initialConversation = require('../public/data/initial-conversation');
 const systemConversation = require('../public/data/initial-tone-analyzer-payload');
-
-// French
-const initialConversationFrenchString = JSON.stringify(require('../public/data/initial-conversation-fr'));
-const initialConversationFrench = require('../public/data/initial-conversation-fr');
-const systemConversationFrench = require('../public/data/initial-tone-analyzer-payload-fr');
 
 const CUSTOMER_NAME = 'Fred';
 const CUSTOMER_HANDLE = '@Fred_theConsumer';
@@ -36,10 +29,8 @@ const Demo = React.createClass({
   * prior to rendering.
   */
   getInitialState() {
-    // eslint-disable-next-line
     console.log('getInitialState called');
     const initialLastUtterance = initialConversation.utterances[initialConversation.utterances.length - 1];
-
     return {
       conversation: JSON.parse(initialConversationString),
       error: null,
@@ -47,24 +38,18 @@ const Demo = React.createClass({
       newUtteranceAvatarType: initialLastUtterance.user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
       showJson: false,
       isResetting: false,
-      language: 'en',
       loading: false,
       initializing: true,
-      systemConversation,
     };
   },
 
   componentDidMount() {
-    // Add language parameter to request body
-    this.state.systemConversation.content_language = this.state.language;
-
     fetch('/api/tone_chat', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(this.state.systemConversation),
+      body: JSON.stringify(systemConversation),
     }).then(this.handleErrors).then((response) => {
       response.json().then((tone) => {
-        delete this.state.systemConversation.content_language;
         this.setState({
           conversation: this.createConversationJson(tone, 'agent'),
           initializing: false,
@@ -111,7 +96,6 @@ const Demo = React.createClass({
           utterances: [
             { text: utterance, user: 'customer' },
           ],
-          content_language: this.state.language,
         }),
       }).then(this.handleErrors).then((response) => {
         response.json().then((tone) => {
@@ -154,8 +138,7 @@ const Demo = React.createClass({
         headers: { 'content-type': 'application/json' },
         body: JSON.stringify(voteData),
       }).then(this.handleErrors).then((response) => {
-        // eslint-disable-next-line
-        console.log('watson tone accuracy logged: '.concat(response));
+          console.log('watson tone accuracy logged: '.concat(response));
       }).catch((error) => {
         this.setState({
           error,
@@ -170,54 +153,7 @@ const Demo = React.createClass({
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newToneData),
     }).then(this.handleErrors).then((response) => {
-      // eslint-disable-next-line
-      console.log('suggested tone logged: '.concat(response));
-    }).catch((error) => {
-      this.setState({
-        error,
-      });
-    });
-  },
-
-  updateLanguage(language) {
-    // Do nothing if same language is selected
-    if (language === this.state.language) {
-      return null;
-    }
-
-    let updatedSystemConversation = systemConversation;
-    let updatedConversation = initialConversationString;
-    let updatedInitialConversation = initialConversation;
-
-    if (language === 'fr') {
-      updatedSystemConversation = systemConversationFrench;
-      updatedConversation = initialConversationFrenchString;
-      updatedInitialConversation = initialConversationFrench;
-    }
-
-    // Needs to be updated before so that the language button can be highlighted timely.
-    this.setState({
-      language,
-    });
-
-
-    // Add language parameter to request body
-    updatedSystemConversation.content_language = language;
-
-    fetch('/api/tone_chat', {
-      method: 'POST',
-      headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(updatedSystemConversation),
-    }).then(this.handleErrors).then((response) => {
-      response.json().then((tone) => {
-        this.setState({
-          conversation: this.createConversationJson(tone, 'agent'),
-          newUtterancePlaceholder: JSON.parse(updatedConversation).agent.handle,
-          // eslint-disable-next-line
-          newUtteranceAvatarType: updatedInitialConversation.utterances[updatedInitialConversation.utterances.length - 1].user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
-          systemConversation: updatedSystemConversation,
-        });
-      });
+        console.log('suggested tone logged: '.concat(response));
     }).catch((error) => {
       this.setState({
         error,
@@ -327,16 +263,12 @@ const Demo = React.createClass({
   },
 
   resetConversation() {
-    // Add language parameter to request body
-    this.state.systemConversation.content_language = this.state.language;
-
     fetch('/api/tone_chat', {
       method: 'POST',
       headers: { 'content-type': 'application/json' },
-      body: JSON.stringify(this.state.systemConversation),
+      body: JSON.stringify(systemConversation),
     }).then(this.handleErrors).then((response) => {
       response.json().then((tone) => {
-        delete this.state.systemConversation.content_language;
         this.setState({
           conversation: this.createConversationJson(tone, 'agent'),
           error: null,
@@ -365,12 +297,7 @@ const Demo = React.createClass({
           <div className="loading_container">
             <Icon type="loader" size="large" />
           </div>) :
-        (
-          <div>
-            <LanguageSelector
-              onLanguageSelection={this.updateLanguage}
-              currentLanguage={this.state.language}
-            />
+          (<div>
             <Output
               conversation={this.state.conversation.utterances}
               onVote={this.onVote}

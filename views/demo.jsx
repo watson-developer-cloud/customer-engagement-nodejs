@@ -36,6 +36,7 @@ const Demo = React.createClass({
   * prior to rendering.
   */
   getInitialState() {
+    // eslint-disable-next-line
     console.log('getInitialState called');
     const initialLastUtterance = initialConversation.utterances[initialConversation.utterances.length - 1];
     // TODO: Change value of initialLastUtterance based on language button pressed
@@ -160,6 +161,7 @@ const Demo = React.createClass({
         },
         body: JSON.stringify(voteData),
       }).then(this.handleErrors).then((response) => {
+        // eslint-disable-next-line
         console.log('watson tone accuracy logged: '.concat(response));
       }).catch((error) => {
         this.setState({
@@ -177,6 +179,7 @@ const Demo = React.createClass({
       },
       body: JSON.stringify(newToneData),
     }).then(this.handleErrors).then((response) => {
+      // eslint-disable-next-line
       console.log('suggested tone logged: '.concat(response));
     }).catch((error) => {
       this.setState({
@@ -201,9 +204,11 @@ const Demo = React.createClass({
       updatedInitialConversation = initialConversationFrench;
     }
 
+    // Needs to be updated before so that the language button can be highlighted timely.
     this.setState({
       language,
     });
+
 
     // Add language parameter to request body
     updatedSystemConversation.content_language = language;
@@ -219,6 +224,7 @@ const Demo = React.createClass({
         this.setState({
           conversation: this.createConversationJson(tone, 'agent'),
           newUtterancePlaceholder: JSON.parse(updatedConversation).agent.handle,
+          // eslint-disable-next-line
           newUtteranceAvatarType: updatedInitialConversation.utterances[updatedInitialConversation.utterances.length - 1].user.type === 'agent' ? 'customer_avatar' : 'agent_avatar', // 'customer_avatar'
           systemConversation: updatedSystemConversation,
         });
@@ -376,6 +382,7 @@ const Demo = React.createClass({
           <div>
             <LanguageSelector
               onLanguageSelection={this.updateLanguage}
+              currentLanguage={this.state.language}
             />
             <Output
               conversation={this.state.conversation.utterances}

@@ -382,20 +382,20 @@ textarea {
   text-align: center;
 }
 
-.language_header {
-  width: 100%;
-  padding-left: 20px;
-  padding-top: 10px;
-  font-size: 1.25em;
-}
-
-.select_language_header {
-  float: left;
-  width: 20%;
-}
-
-.language_options {
-  float: left;
+.language-selector {
   margin-top: 0;
-  width: 80%;
+  display: flex;
+  flex-flow: row wrap;
+  justify-content: flex-start;
+  align-items: center;
+  font-size: 1em;
+}
+
+.language-selector--header {
+  flex-grow: 1;
+}
+
+.language-selector--options{
+  flex-grow: 9;
+  margin-top: 0;
 }

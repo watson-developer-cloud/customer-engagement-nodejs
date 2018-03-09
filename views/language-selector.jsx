@@ -9,9 +9,9 @@ function LanguageSelector(props) {
   }
 
   return (
-    <div className="language_selection_container">
-      <div className="select_language_header">Select Language: </div>
-      <div className="language_options">
+    <div className="language-selector">
+      <div className="language-selector--header">Select Language: </div>
+      <div className="language-selector--options">
         {
           <ButtonsGroup
             type="radio"

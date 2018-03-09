@@ -39,7 +39,6 @@ const Demo = React.createClass({
     // eslint-disable-next-line
     console.log('getInitialState called');
     const initialLastUtterance = initialConversation.utterances[initialConversation.utterances.length - 1];
-    // TODO: Change value of initialLastUtterance based on language button pressed
 
     return {
       conversation: JSON.parse(initialConversationString),
@@ -61,9 +60,7 @@ const Demo = React.createClass({
 
     fetch('/api/tone_chat', {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify(this.state.systemConversation),
     }).then(this.handleErrors).then((response) => {
       response.json().then((tone) => {
@@ -109,9 +106,7 @@ const Demo = React.createClass({
     } else {
       fetch('/api/tone_chat', {
         method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
+        headers: { 'content-type': 'application/json' },
         body: JSON.stringify({
           utterances: [
             { text: utterance, user: 'customer' },
@@ -156,9 +151,7 @@ const Demo = React.createClass({
     if (utterance.source === 'user') {
       fetch('/log_perceived_accuracy', {
         method: 'POST',
-        headers: {
-          'content-type': 'application/json',
-        },
+        headers: { 'content-type': 'application/json' },
         body: JSON.stringify(voteData),
       }).then(this.handleErrors).then((response) => {
         // eslint-disable-next-line
@@ -174,9 +167,7 @@ const Demo = React.createClass({
   onRecordOtherTone(newToneData) {
     fetch('/log_alternative_customer_tones', {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify(newToneData),
     }).then(this.handleErrors).then((response) => {
       // eslint-disable-next-line
@@ -215,9 +206,7 @@ const Demo = React.createClass({
 
     fetch('/api/tone_chat', {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify(updatedSystemConversation),
     }).then(this.handleErrors).then((response) => {
       response.json().then((tone) => {
@@ -343,9 +332,7 @@ const Demo = React.createClass({
 
     fetch('/api/tone_chat', {
       method: 'POST',
-      headers: {
-        'content-type': 'application/json',
-      },
+      headers: { 'content-type': 'application/json' },
       body: JSON.stringify(this.state.systemConversation),
     }).then(this.handleErrors).then((response) => {
       response.json().then((tone) => {

@@ -16,7 +16,7 @@
         "handle": "@Fred_theConsumer"
       },
       "statement": {
-        "text": "Mon chargeur ne fonctionne pas.",
+        "text": "Pourquoi mon chargeur ne fonctionne pas ???",
         "timestamp": "6 hours ago"
       },
       "tones": [
@@ -28,7 +28,7 @@
       "tone_analyzer_payload": {
         "utterances_tone": [{
           "utterance_id": 0,
-          "utterance_text": "Mon chargeur ne fonctionne pas.",
+          "utterance_text": "Pourquoi mon chargeur ne fonctionne pas ???",
           "tones": [{
               "score": 0.786501,
               "tone_id": "frustrated",
@@ -203,7 +203,7 @@
         "handle": "@Fred_theConsumer"
       },
       "statement": {
-        "text": "Waouh! Ça marche. Merci pour l'astuce.",
+        "text": "Hou la la! Ça marche. Merci pour le tuyau.",
         "timestamp": "18 minutes ago"
       },
       "tones": [
@@ -223,7 +223,7 @@
       "tone_analyzer_payload": {
         "utterances_tone": [{
           "utterance_id": 0,
-          "utterance_text": "Waouh! Ça marche. Merci pour l'astuce.",
+          "utterance_text": "Hou la la! Ça marche. Merci pour le tuyau.",
           "tones": [{
               "score": 0.741736,
               "tone_id": "excited",
@@ -249,7 +249,7 @@
         "handle": "@Agent_technology_company"
       },
       "statement": {
-        "text": "Génial! Est-ce que je peux vous aider à autre chose?",
+        "text": "Génial! Avez-vous besoin de plus d'aide aujourd'hui?",
         "timestamp": "16 minutes ago"
       },
       "tones": [
@@ -269,7 +269,7 @@
       "tone_analyzer_payload": {
         "utterances_tone": [{
           "utterance_id": 0,
-          "utterance_text": "Génial! Est-ce que je peux vous aider à autre chose?",
+          "utterance_text": "Génial! Avez-vous besoin de plus d'aide aujourd'hui?",
           "tones": [{
               "score": 0.510956,
               "tone_id": "excited",

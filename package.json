@@ -24,7 +24,7 @@
     "babelify": "^7.3.0",
     "body-parser": "^1.16.0",
     "cf-deployment-tracker-client": "^0.1.2",
-    "cloudant": "^1.7.1",
+    "cloudant": "^1.10.0",
     "dotenv": "^4.0.0",
     "express": "^4.14.0",
     "express-browserify": "^1.0.2",

@@ -1,0 +1,12 @@
+{
+  "utterances": [
+      {"text": "Pourquoi mon chargeur ne fonctionne pas ???"},
+      {"text": "Merci de nous avoir contacté. Pouvez-vous me décrire votre problème?"},
+      {"text": "J'ai mis mon téléphone à charger la nuit dernière mais ça ne marche pas. C'est n'importe quoi, c'est un nouveau chargeur, je l'ai acheté hier!"},
+      {"text": "Je suis désolé que vous ayez un problème avec votre chargeur. Quel type de chargeur avez-vous?"},
+      {"text": "Le chargeur du téléphone."},
+      {"text": "Ok, super. Pourriez-vous le brancher et maintenir le bouton d'alimentation appuyé pendant environ 10 secondes ? Après ça, ça devrait fonctionner :)."},
+      {"text": "Hou la la! Ça marche. Merci pour le tuyau."},
+      {"text": "Génial! Avez-vous besoin de plus d'aide aujourd'hui?"}
+  ]
+}

@@ -3,7 +3,7 @@ import classNames from 'classnames';
 import { ButtonsGroup, Icon, Colors } from 'watson-react-components';
 import CheckboxesGroup from './checkboxes-group.jsx';
 
-const CUSTOMER_TONES = ['sad', 'frustrated', 'satisfied', 'excited', 'polite', 'impolite', 'sympathetic'];
+const CUSTOMER_TONES = ['Sad', 'Frustrated', 'Satisfied', 'Excited', 'Polite', 'Impolite', 'Sympathetic'];
 
 const ConversationItem = React.createClass({
   displayName: 'ConversationItem',
@@ -37,7 +37,7 @@ const ConversationItem = React.createClass({
   getMissingTones(tones) {
     const utteranceTones = tones.map(t => t.tone);
     const missingTones = CUSTOMER_TONES.filter(x => utteranceTones.indexOf(x) < 0);
-    missingTones.push('neutral');
+    missingTones.push('Neutral');
     return (missingTones);
   },
 
@@ -46,10 +46,10 @@ const ConversationItem = React.createClass({
     this.getMissingTones(tones);
     return (
       tones.length !== 0 &&
-      (firstTone.tone === 'sad' ||
-      firstTone.tone === 'frustrated' ||
-      firstTone.tone === 'anxious' ||
-      firstTone.tone === 'impolite')
+      (firstTone.tone === 'Sad' ||
+      firstTone.tone === 'Frustrated' ||
+      firstTone.tone === 'Anxious' ||
+      firstTone.tone === 'Impolite')
     );
   },
 
@@ -107,7 +107,7 @@ const ConversationItem = React.createClass({
             <div className="agree_container"><span className="agree_link">Do you agree?</span></div>
             { tones.length === 0 ?
               <div className="tone_results" key={'none'}>
-                <div className="tone_text">{ 'none' }</div>
+                <div className="tone_text">{ 'None' }</div>
                 { this.props.isResetting ?
                   null :
                   <div className="feedback">

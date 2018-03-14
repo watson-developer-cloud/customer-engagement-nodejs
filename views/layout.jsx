@@ -29,7 +29,7 @@ function Layout(props) {
         <Jumbotron
           serviceName="Tone Analyzer for Customer Engagement"
           repository="https://github.com/watson-developer-cloud/customer-engagement-nodejs"
-          documentation="http://www.ibm.com/watson/developercloud/doc/tone-analyzer/index.html"
+          documentation="https://console.bluemix.net/docs/services/tone-analyzer/index.html"
           apiReference="https://www.ibm.com/watson/developercloud/tone-analyzer/api/v3/#customer-tone"
           version="GA"
           serviceIcon="/images/service-icon.png"

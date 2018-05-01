@@ -10,6 +10,14 @@ function LanguageSelector(props) {
 
   return (
     <div className="language-selector">
+      <div className="disclaimer--message">
+        <h6 className="base--h6" >
+            * This system is for demonstration purposes only and is not intended to process
+            Personal Data. No Personal Data is to be entered into this system as it may not
+            have the necessary controls in place to meet the requirements of the General Data
+            Protection Regulation (EU) 2016/679.<br />
+        </h6>
+      </div>
       <div className="language-selector--header">Select Language: </div>
       <div className="language-selector--options">
         {

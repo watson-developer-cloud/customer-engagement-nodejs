@@ -1,5 +1,5 @@
 .root {
-  margin: 4rem auto 0rem;
+  margin: 2rem auto 0rem;
 }
 
 .error_message {
@@ -398,4 +398,8 @@ textarea {
 .language-selector--options{
   flex-grow: 9;
   margin-top: 0;
+}
+
+.disclaimer--message .base--h6{
+  padding-bottom: 1rem;
 }

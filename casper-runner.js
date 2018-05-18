@@ -15,7 +15,7 @@
  */
 
 if (!process.env.TONE_ANALYZER_USERNAME) {
-  console.log('Skipping integration tests');
+  console.log('Skipping integration tests'); // eslint-disable-line no-console
   return;
 }
 const spawn = require('child_process').spawn;

@@ -24,11 +24,12 @@ const ReactDOMServer = require('react-dom/server');
 require('babel-register');
 
 describe('react', () => {
-  it('should render some html', () => {
+  it('should render some html', (done) => {
     const index = require('../../views/index.jsx').default;
     const element = React.createElement(index, null);
     const result = ReactDOMServer.renderToString(element);
     assert(result);
     assert.equal(result.substr(0, 5), '<html');
+    done();
   });
 });

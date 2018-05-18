@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
+require('dotenv').config();
+
 if (!process.env.TONE_ANALYZER_USERNAME) {
   console.log('Skipping integration tests'); // eslint-disable-line no-console
   return;
 }
-const spawn = require('child_process').spawn;
-
-require('dotenv').config();
+const spawn = require('child_process').spawn; // eslint-disable-line
 
 const app = require('./app');
 const port = 3000;

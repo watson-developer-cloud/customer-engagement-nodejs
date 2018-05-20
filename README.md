@@ -1,7 +1,7 @@
-# Customer Care Demo [![Build Status](https://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs) [![codecov](https://codecov.io/gh/watson-developer-cloud/customer-engagement-nodejs/branch/master/graph/badge.svg)](https://codecov.io/gh/watson-developer-cloud/customer-engagement-nodejs)
+# Customer Care Demo [![Build Status](https://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs)
 
 
-  The IBM Watson&trade; Tone Analyzer for Customer Engagement - TBA
+  The IBM Watson&trade; Tone Analyzer for Customer Engagement.
 
 
 ## Getting started
@@ -119,25 +119,3 @@ For more details about developing applications that use Watson Developer Cloud s
 
 ## Open Source @ IBM
   Find more open source projects on the [IBM Github Page](http://ibm.github.io/)
-
-## Privacy Notice
-
-Sample web applications that include this package may be configured to track deployments to [IBM Bluemix](https://www.bluemix.net/) and other Cloud Foundry platforms. The following information is sent to a [Deployment Tracker](https://github.com/IBM-Bluemix/cf-deployment-tracker-service) service on each deployment:
-
-* Node.js package version
-* Node.js repository URL
-* Application Name (`application_name`)
-* Space ID (`space_id`)
-* Application Version (`application_version`)
-* Application URIs (`application_uris`)
-* Labels of bound services
-* Number of instances for each bound service and associated plan information
-
-This data is collected from the `package.json` file in the sample application and the `VCAP_APPLICATION` and `VCAP_SERVICES` environment variables in IBM Bluemix and other Cloud Foundry platforms. This data is used by IBM to track metrics around deployments of sample applications to IBM Bluemix to measure the usefulness of our examples, so that we can continuously improve the content we offer to you. Only deployments of sample applications that include code to ping the Deployment Tracker service will be tracked.
-
-[deploy_track_url]: https://github.com/cloudant-labs/deployment-tracker
-[cloud_foundry]: https://github.com/cloudfoundry/cli
-[getting_started]: https://www.ibm.com/watson/developercloud/doc/getting_started/
-[docs]: http://www.ibm.com/watson/developercloud/tone-analyzer/
-[sign_up]: https://console.ng.bluemix.net/registration/
-[service_url]: http://www.ibm.com/watson/developercloud/tone-analyzer.html

@@ -21,7 +21,7 @@
     "max-len": ["warn", 160],
     "consistent-return": "off",
     "func-names": "off",
-    "global-require": "off",
+    "global-require": "off"
   },
   "env": {
     "node": true,

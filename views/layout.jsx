@@ -40,7 +40,7 @@ function Layout(props) {
           {props.children}
         </div>
         <script type="text/javascript" src="js/bundle.js" />
-        <script type="text/javascript" src="js/analytics.js" />
+        <script type="text/javascript" src="https://cdn.rawgit.com/watson-developer-cloud/watson-developer-cloud.github.io/master/analytics.js"></script>
       </body>
     </html>
   );

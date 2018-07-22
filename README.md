@@ -1,93 +1,95 @@
-# Customer Care Demo [![Build Status](https://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs.svg?branch=master)](http://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs)
+<h1 align="center" style="border-bottom: none;">🚀 Customer Engagement Demo</h1>
+<h3 align="center">This application demonstrates how the Watson Tone Analyzer service can be used for Customer Engagement.</h3>
+<p align="center">
+  <a href="http://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs">
+    <img alt="Travis" src="https://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs.svg?branch=master">
+  </a>
+  <a href="#badge">
+    <img alt="semantic-release" src="https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg">
+  </a>
+</p>
+</p>
 
 
-  The IBM Watson&trade; Tone Analyzer for Customer Engagement.
+## Prerequisites
 
+1. Sign up for an [IBM Cloud account](https://console.bluemix.net/registration/).
+1. Download the [IBM Cloud CLI](https://console.bluemix.net/docs/cli/index.html#overview).
+1. Create an instance of the Tone Analyzer service and get your credentials:
+    - Go to the [Tone Analyzer](https://console.bluemix.net/catalog/services/tone-analyzer) page in the IBM Cloud Catalog.
+    - Log in to your IBM Cloud account.
+    - Click **Create**.
+    - Click **Show** to view the service credentials.
+    - Copy the `apikey` value, or copy the `username` and `password` values if your service instance doesn't provide an `apikey`.
+    - Copy the `url` value.
 
-## Getting started
+## Configuring the application
 
-1. You need a Bluemix account. If you don't have one, [sign up][sign_up]. Experimental Watson Services are free to use.
+1. In the application folder, copy the *.env.example* file and create a file called *.env*
 
-1. Download and install the [Cloud-foundry CLI][cloud_foundry] tool if you haven't already.
+    ```
+    cp .env.example .env
+    ```
 
-1. Edit the `manifest.yml` file and change `<application-name>` to something unique. The name you use determines the URL of your application. For example, `<application-name>.mybluemix.net`.
+2. Open the *.env* file and add the service credentials that you obtained in the previous step.
 
-  ```yaml
-  applications:
-  - services:
-    - my-service-instance
-    name: <application-name>
-    command: npm start
-    path: .
-    memory: 512M
-  ```
+    Example *.env* file that configures the `apikey` and `url` for a Tone Analyzer service instance hosted in the US East region:
 
-1. Connect to Bluemix with the command line tool.
+    ```
+    TONE_ANALYZER_IAM_APIKEY=X4rbi8vwZmKpXfowaS3GAsA7vdy17Qh7km5D6EzKLHL2
+    TONE_ANALYZER_URL=https://gateway.watsonplatform.net/tone-analyzer/api
+    ```
 
-  ```sh
-  cf api https://api.ng.bluemix.net
-  cf login
-  ```
+    - If your service instance uses `username` and `password` credentials, add the `TONE_ANALYZER_USERNAME` and `TONE_ANALYZER_PASSWORD` variables to the *.env* file.
 
-1. Create and retrieve service keys to access the [Tone Analyzer][service_url] service:
+    Example *.env* file that configures the `username`, `password`, and `url` for a Tone Analyzer service instance hosted in the Sydney region:
 
-  ```none
-  cf create-service tone_analyzer standard my-ta-service
-  cf create-service-key my-ta-service myKey
-  cf service-key my-ta-service myKey
-  ```
+    ```
+    TONE_ANALYZER_USERNAME=522be-7b41-ab44-dec3-g1eab2ha73c6
+    TONE_ANALYZER_PASSWORD=A4Z5BdGENrwu8
+    TONE_ANALYZER_URL=https://gateway-syd.watsonplatform.net/tone-analyzer/api
+    ```
 
-1. Create a `.env` file in the root directory by copying the sample `.env.example` file using the following command:
+## Running locally
 
-  ```none
-  cp .env.example .env
-  ```
-  You will update the `.env` with the information you retrieved in steps 5 and 6
+1. Install the dependencies
 
-  The `.env` file will look something like the following:
+    ```
+    npm install
+    ```
 
-  ```none
-  TONE_ANALYZER_USERNAME=<username>
-  TONE_ANALYZER_PASSWORD=<password>
-  ```
+1. Run the application
 
-1. Install the dependencies you application need:
+    ```
+    npm start
+    ```
 
-  ```none
-  npm install
-  ```
+1. View the application in a browser at `localhost:3000`
 
-1. Start the application locally:
+## Deploying to IBM Cloud as a Cloud Foundry Application
 
-  ```none
-  npm start
-  ```
+1. Login to IBM Cloud with the [IBM Cloud CLI](https://console.bluemix.net/docs/cli/index.html#overview)
 
-1. Point your browser to [http://localhost:3000](http://localhost:3000).
+    ```
+    ibmcloud login
+    ```
 
-1. **Optional:** Push the application to Bluemix:
+1. Target a Cloud Foundry organization and space.
 
-  ```none
-  cf push
-  ```
+    ```
+    ibmcloud target --cf
+    ```
 
-After completing the steps above, you are ready to test your application. Start a browser and enter the URL of your application.
+1. Edit the *manifest.yml* file. Change the **name** field to something unique.  
+  For example, `- name: my-app-name`.
+1. Deploy the application
 
-            <your application name>.mybluemix.net
+    ```
+    ibmcloud app push
+    ```
 
-
-For more details about developing applications that use Watson Developer Cloud services in Bluemix, see [Getting started with Watson Developer Cloud and Bluemix][getting_started].
-
-
-## Troubleshooting
-
-* The main source of troubleshooting and recovery information is the Bluemix log. To view the log, run the following command:
-
-  ```sh
-  cf logs <application-name> --recent
-  ```
-
-* For more details about the service, see the [documentation][docs] for the Tone Analyzer Service.
+1. View the application online at the app URL.  
+For example: https://my-app-name.mybluemix.net
 
 
 ----

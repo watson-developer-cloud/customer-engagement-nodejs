@@ -16,7 +16,7 @@
 
 require('dotenv').config();
 
-if (!process.env.TONE_ANALYZER_USERNAME) {
+if (!process.env.TONE_ANALYZER_USERNAME && !process.env.TONE_ANALYZER_IAM_APIKEY) {
   console.log('Skipping integration tests'); // eslint-disable-line no-console
   return;
 }

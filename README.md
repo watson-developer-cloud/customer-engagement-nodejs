@@ -1,5 +1,5 @@
 <h1 align="center" style="border-bottom: none;">🚀 Customer Engagement Demo</h1>
-<h3 align="center">This application demonstrates how the Watson Tone Analyzer service can be used for Customer Engagement.</h3>
+<h3 align="center">DEPRECATED: this repo is no longer actively maintained. It can still be used as reference, but may contain outdated or unpatched code.</h3>
 <p align="center">
   <a href="http://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs">
     <img alt="Travis" src="https://travis-ci.org/watson-developer-cloud/customer-engagement-nodejs.svg?branch=master">

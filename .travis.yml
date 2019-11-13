@@ -1,7 +1,7 @@
 language: node_js
 dist: trusty
 sudo: required
-node_js: 8
+node_js: 12
 script:
 - npm run test
 
@@ -17,8 +17,7 @@ env:
 before_deploy: npm install -g bx-blue-green
 deploy:
 - provider: script
-  script:
-  - bx-blue-green-travis
+  script: bx-blue-green-travis
   on:
     branch: master
     repo: watson-developer-cloud/customer-engagement-nodejs
@@ -26,5 +25,3 @@ deploy:
 - provider: script
   skip_cleanup: true
   script: npx semantic-release
-  on:
-    node: 8

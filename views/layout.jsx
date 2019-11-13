@@ -24,16 +24,16 @@ function Layout(props) {
       <body>
         <Header
           mainBreadcrumbs="Tone Analyzer"
-          mainBreadcrumbsUrl="http://www.ibm.com/watson/developercloud/tone-analyzer.html"
+          mainBreadcrumbsUrl="https://www.ibm.com/cloud/watson-tone-analyzer"
         />
         <Jumbotron
           serviceName="Tone Analyzer for Customer Engagement"
           repository="https://github.com/watson-developer-cloud/customer-engagement-nodejs"
-          documentation="https://console.bluemix.net/docs/services/tone-analyzer/index.html"
-          apiReference="https://www.ibm.com/watson/developercloud/tone-analyzer/api/v3/#customer-tone"
+          documentation="https://cloud.ibm.com/docs/services/tone-analyzer?topic=tone-analyzer-about"
+          apiReference="https://cloud.ibm.com/apidocs/tone-analyzer"
           version="GA"
           serviceIcon="/images/service-icon.png"
-          startInBluemix="https://console.ng.bluemix.net/registration/?target=/catalog/services/tone-analyzer/"
+          startInBluemix="https://cloud.ibm.com/registration/?target=/catalog/services/tone-analyzer/"
           description={DESCRIPTION}
         />
         <div id="root" className="root _container_medium">

@@ -14,23 +14,24 @@
  * limitations under the License.
  */
 
-
 // security.js
 const secure = require('express-secure-only');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
-module.exports = function (app) {
+module.exports = function(app) {
   app.use(secure());
   app.use(helmet());
 
-  app.use('/api/', rateLimit({
-    windowMs: 60 * 1000, // seconds
-    delayMs: 0,
-    max: 10,
-    message: JSON.stringify({
-      error: 'Too many requests, please try again in 30 seconds.',
-      code: 429,
-    }),
-  }));
+  app.use(
+    '/api/',
+    rateLimit({
+      windowMs: 60 * 1000, // seconds
+      max: 10,
+      message: JSON.stringify({
+        error: 'Too many requests, please try again in 30 seconds.',
+        code: 429,
+      }),
+    })
+  );
 };

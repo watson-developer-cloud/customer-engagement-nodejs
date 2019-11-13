@@ -18,15 +18,22 @@
 require('dotenv').config({ silent: true });
 
 const express = require('express');
+
 const app = express();
 
 // Bootstrap application settings
 require('./config/express')(app);
 
 // Instantiate Tone Analyzer service
-const ToneAnalyzerV3 = require('watson-developer-cloud/tone-analyzer/v3');
+const ToneAnalyzerV3 = require('ibm-watson/tone-analyzer/v3');
+const { IamAuthenticator } = require('ibm-watson/auth');
+
 const toneAnalyzer = new ToneAnalyzerV3({
-  version: '2017-09-21',
+  version: '2019-10-10',
+  authenticator: new IamAuthenticator({
+    apikey: process.env.TONE_ANALYZER_IAM_APIKEY || 'type-key-here',
+  }),
+  url: process.env.TONE_ANALYZER_URL,
 });
 
 // Endpoint for web app
@@ -35,32 +42,33 @@ app.get('/', (req, res) => {
 });
 
 // Endpoint for Tone Analyzer tone_chat endpoint
-app.post('/api/tone_chat', (req, res, next) => {
-  toneAnalyzer.toneChat(req.body, (err, tone) => {
-    if (err) {
-      return next(err);
-    }
-    return res.json(tone);
-  });
+app.post('/api/tone_chat', async (req, res, next) => {
+  const params = {
+    utterances: req.body.utterances,
+    contentLanguage: req.body.content_language
+  };
+  try {
+    const tone = await toneAnalyzer.toneChat(params);
+    return res.json(tone.result);
+  } catch(e) {
+    next(e);
+  }
 });
 
 // Endpoint for healthcheck for Tone Analyzer's tone_chat endpoint
-app.get('/healthcheck', (req, res) => {
+app.get('/healthcheck', async (req, res) => {
   const start = new Date();
   const payload = { utterances: [{ text: 'sad', user: 'customer' }] };
 
-  toneAnalyzer.tone_chat(payload, (err) => {
-    const response = {
+  try {
+    const tone = await toneAnalyzer.toneChat(payload);
+    return res.json({
       status: 'normal',
-      response_time: (new Date() - start),
-    };
-
-    if (err) {
-      Object.assign(response, { status: 'down', error: err });
-      return res.status(502).json(response);
-    }
-    return res.json(response);
-  });
+      response_time: new Date() - start
+    });
+  } catch(error) {
+    return res.status(502).json({ status: 'down', error, response_time: new Date() - start });
+  }
 });
 
 // User feedback module

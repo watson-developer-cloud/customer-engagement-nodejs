@@ -335,7 +335,7 @@ const Demo = React.createClass({
       headers: { 'content-type': 'application/json' },
       body: JSON.stringify(this.state.systemConversation),
     }).then(this.handleErrors).then((response) => {
-      response.json().then((tone) => {
+      response.json().then((response) => {
         delete this.state.systemConversation.content_language;
         this.setState({
           conversation: this.createConversationJson(tone, 'agent'),

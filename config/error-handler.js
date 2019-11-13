@@ -15,8 +15,7 @@
  */
 /* eslint no-unused-vars: "off" */
 
-
-module.exports = function (app) {
+module.exports = function(app) {
   // catch 404 and forward to error handler
   app.use((req, res, next) => {
     const err = new Error('Not Found');
@@ -27,6 +26,7 @@ module.exports = function (app) {
 
   // error handler
   app.use((err, req, res, next) => {
+    console.log(err);
     const error = {
       code: err.code || 500,
       error: err.error || err.message,

@@ -14,21 +14,17 @@
  * limitations under the License.
  */
 
-
 // Module dependencies
 const express = require('express');
 const bodyParser = require('body-parser');
 const expressBrowserify = require('express-browserify');
 const path = require('path');
 const morgan = require('morgan');
-const monitor = require('express-status-monitor');
-module.exports = function (app) {
+
+module.exports = function(app) {
   app.enable('trust proxy');
-  app.use(require('express-status-monitor')());
   app.set('view engine', 'jsx');
   app.engine('jsx', require('express-react-views').createEngine());
-
-  app.use(monitor());
 
   // Only loaded when running in Bluemix
   if (process.env.VCAP_APPLICATION) {
@@ -37,7 +33,7 @@ module.exports = function (app) {
 
   // automatically bundle the front-end js on the fly
   // note: this should come before the express.static since bundle.js is in the public folder
-  const isDev = (app.get('env') === 'development');
+  const isDev = app.get('env') === 'development';
   const browserifyier = expressBrowserify('./public/js/bundle.jsx', {
     watch: isDev,
     debug: isDev,
@@ -53,6 +49,10 @@ module.exports = function (app) {
   app.use(bodyParser.json({ limit: '1mb' }));
   app.use(bodyParser.urlencoded({ extended: false }));
   app.use(express.static(path.join(__dirname, '..', 'public')));
-  app.use(express.static(path.join(__dirname, '..', 'node_modules/watson-react-components/dist/')));
+  app.use(
+    express.static(
+      path.join(__dirname, '..', 'node_modules/watson-react-components/dist/')
+    )
+  );
   app.use(morgan('dev'));
 };

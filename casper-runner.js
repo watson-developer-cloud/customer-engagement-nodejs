@@ -18,11 +18,12 @@ require('dotenv').config();
 
 if (!process.env.TONE_ANALYZER_USERNAME && !process.env.TONE_ANALYZER_IAM_APIKEY) {
   console.log('Skipping integration tests'); // eslint-disable-line no-console
-  return;
+  process.exit(0);
 }
 const spawn = require('child_process').spawn; // eslint-disable-line
 
 const app = require('./app');
+
 const port = 3000;
 
 const server = app.listen(port, () => {

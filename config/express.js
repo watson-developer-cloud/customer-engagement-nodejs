@@ -21,7 +21,7 @@ const expressBrowserify = require('express-browserify');
 const path = require('path');
 const morgan = require('morgan');
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.enable('trust proxy');
   app.set('view engine', 'jsx');
   app.engine('jsx', require('express-react-views').createEngine());
@@ -51,8 +51,8 @@ module.exports = function(app) {
   app.use(express.static(path.join(__dirname, '..', 'public')));
   app.use(
     express.static(
-      path.join(__dirname, '..', 'node_modules/watson-react-components/dist/')
-    )
+      path.join(__dirname, '..', 'node_modules/watson-react-components/dist/'),
+    ),
   );
   app.use(morgan('dev'));
 };

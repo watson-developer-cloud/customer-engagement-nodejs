@@ -45,13 +45,13 @@ app.get('/', (req, res) => {
 app.post('/api/tone_chat', async (req, res, next) => {
   const params = {
     utterances: req.body.utterances,
-    contentLanguage: req.body.content_language
+    contentLanguage: req.body.content_language,
   };
   try {
     const tone = await toneAnalyzer.toneChat(params);
     return res.json(tone.result);
-  } catch(e) {
-    next(e);
+  } catch (e) {
+    return next(e);
   }
 });
 
@@ -61,12 +61,12 @@ app.get('/healthcheck', async (req, res) => {
   const payload = { utterances: [{ text: 'sad', user: 'customer' }] };
 
   try {
-    const tone = await toneAnalyzer.toneChat(payload);
+    await toneAnalyzer.toneChat(payload);
     return res.json({
       status: 'normal',
-      response_time: new Date() - start
+      response_time: new Date() - start,
     });
-  } catch(error) {
+  } catch (error) {
     return res.status(502).json({ status: 'down', error, response_time: new Date() - start });
   }
 });

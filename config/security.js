@@ -19,7 +19,7 @@ const secure = require('express-secure-only');
 const rateLimit = require('express-rate-limit');
 const helmet = require('helmet');
 
-module.exports = function(app) {
+module.exports = function (app) {
   app.use(secure());
   app.use(helmet());
 
@@ -32,6 +32,6 @@ module.exports = function(app) {
         error: 'Too many requests, please try again in 30 seconds.',
         code: 429,
       }),
-    })
+    }),
   );
 };
